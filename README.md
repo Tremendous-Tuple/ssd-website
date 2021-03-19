@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Getting started
 
-run `npm install --save-dev @angular-devkit/build-angular` to install the dangular dev tools
+run `npm install --save-dev @angular-devkit/build-angular` to install the Angular dev tools
 
 ## Development server
 
