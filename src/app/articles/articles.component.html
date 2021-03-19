@@ -1,0 +1,16 @@
+<div>
+ <h1>Articles List</h1>
+ <p>Below is a list of dynamic article links</p>
+<div class="row" ng-if="i % 3 === 0">
+   <div class="col-sm-4" *ngFor="let article of articles$ | async; index as i">
+     <div class="thumbnail">
+       <a [routerLink]="['/articles', article.id]">
+         <img [src]="article.img" [alt]="article.title" style="width:100%">
+         <div class="caption">
+           <p>{{ article.description}}</p>
+         </div>
+       </a>
+     </div>
+   </div>
+ </div>
+</div>
