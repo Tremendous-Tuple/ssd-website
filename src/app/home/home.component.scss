@@ -1,0 +1,52 @@
+@import "../../assets/variables.scss";
+
+#intro {
+    background-image: url('/../../assets/intro-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    
+    padding: 20px;
+
+    h1, h2, h3, h4, p {
+        color: $textLight;
+        text-align: center;
+    }
+}
+
+#recentBlogs {
+    margin-top: 25px;
+    padding: 20px 5px;
+    border-radius: 15px;
+    background-color: $tertiary;
+    //background: #0000002e;
+
+    .blog-intro {
+        border-bottom: 1px $secondary solid;
+        margin-bottom: 15px;
+
+        h2 {
+            width: 100%;
+            color: $textLight;
+            text-align: center;
+        }
+    }
+
+    .thumbnail {
+        width: 100%;
+
+        img {
+            padding: 0 25px;
+            width:100%;
+        }
+    }
+
+    .title, .excerpt {
+        text-align: center;
+    }
+
+    .view-all-posts {
+        color: $textLight;
+        background-color: $secondary;
+    }
+}

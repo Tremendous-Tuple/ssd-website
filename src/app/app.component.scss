@@ -1,0 +1,30 @@
+@import '../assets/variables.scss';
+
+/********  HEADER STYLES  **********/
+.header {
+    background-color: $primary;
+    padding: 10px;
+}
+
+.title {
+    text-align: center;
+    color: $textLight;
+}
+
+.social-icons {
+    margin-right: 15px;
+    
+    .row{
+        height: 100%;
+    }
+
+    .social-icon{
+        color: $textLight;  
+        padding: 0 10px 0 10px 
+    }
+}
+
+/*******  MAIN CONTENT ******/
+#content {
+    padding-top: 25px;
+}
