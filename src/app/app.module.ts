@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
-
 import { HomeComponent } from './home/home.component';
 
 import { environment } from '../environments/environment';
