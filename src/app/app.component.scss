@@ -28,7 +28,12 @@
     }
 }
 
-/*******  MAIN CONTENT ******/
 #content {
     padding-top: 25px;
+}
+
+#footer {
+    background-color: $secondary;
+    margin-top: 50px;
+    height: 200px;
 }

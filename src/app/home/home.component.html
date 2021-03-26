@@ -8,29 +8,29 @@
 
 <div id="recentBlogs">
     <div class="blog-intro">
-        <h2>Here's what we're up to!</h2>
+        <h2>Previous Events</h2>
     </div>
-    <div class="row justify-content-center">
+    <div class="blogs row justify-content-center">
         <div class="post col-11 col-md-4">
             <div class="thumbnail">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png">
+                <img src="../../assets/Angular_full_color_logo.png">
             </div>
             <h4 class="title">Angular Workshop</h4>
-            <p class="excerpt"></p>
+            <p class="excerpt">Learn how to use the Angular framework to create dynamic websites.</p>
         </div>
         <div class="post col-11 col-md-4">
             <div class="thumbnail">
-                <img src="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics/website-screenshot-styled.png">
+                <img src="../../assets/firebase-logo.png">
             </div>
-            <h4 class="title">Test</h4>
-            <p class="excerpt">djfbsdvjbsdjvbf</p>
+            <h4 class="title">Firebase Introduction</h4>
+            <p class="excerpt">Explore cheap and easy ways to store and distribute data to end users.</p>
         </div>
         <div class="post col-11 col-md-4">
             <div class="thumbnail">
-                <img src="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics/website-screenshot-styled.png">
+                <img src="../../assets/480px-Bootstrap_logo.png">
             </div>
-            <h4 class="title">Test</h4>
-            <p class="excerpt">djfbsdvjbsdjvbf</p>
+            <h4 class="title">Bootstrap Tutorial</h4>
+            <p class="excerpt">Review tools that bootstrap provides to develop responsive websites.</p>
         </div>
     </div>
 
@@ -38,5 +38,12 @@
         <button class="btn view-all-posts" [routerLink]="['/articles']" role="button">View All</button>
     </div>
 </div>
-<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=MONTH&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+<div id="upcoming-events" class='row'>
+    <div class='col-12 col-lg-8 calendar'>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=MONTH&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class='d-none d-lg-block col-lg-4 list'>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+</div>
