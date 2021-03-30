@@ -15,13 +15,17 @@ export const firebaseConfig = environment.firebaseConfig;
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BlogsComponent } from './blogs/blogs.component';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticlesComponent,
     ArticleComponent,
-    HomeComponent
+    HomeComponent,
+    BlogsComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
