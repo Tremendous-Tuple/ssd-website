@@ -26,28 +26,33 @@ export interface Blog {
 
 export class BlogsComponent implements OnInit {
 
-  blogs$: Observable<Blog[]>;
+  //blogs$ is an array of objects, each object contains the data of a blog.
+  //Since is is an observable the content will automaically update when data in the db updates.
+  //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
+  //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
 
-  hoveredDate: NgbDate | null = null;
+  blogs$: Observable<Blog[]>; 
 
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
+
+  hoveredDate: NgbDate | null = null;
 
   constructor(library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     
     library.addIcons(faCommentAlt);
-    console.log(library);
 
     // The code below will query all the blogs
-    // and return id + data (e.g. title, description, img)
-    this.blogs$ = this.db.collection<Blog>('blogs')
+    // and return id + data
+    this.blogs$ = this.db.collection<Blog>('blogs') 
+
     .snapshotChanges().pipe(
       map(changes => { return changes.map(a => {
         const data = a.payload.doc.data() as Blog;
         const id = a.payload.doc.id;
-        return { id, ...data };
+        return { id, ...data }; //the object that contains blog data also has an element named "id" that has the doccument name of the blog
       })})
     );
   }
@@ -56,6 +61,7 @@ export class BlogsComponent implements OnInit {
     this.blogs$.subscribe(data => console.log(data));
   }
 
+  /****** DATE PICKER FUNCTIONS ******/
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;

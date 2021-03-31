@@ -15,8 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="passage">
-                    <p>{{blog.content}}</p>
+                <div id="passage" [innerHTML]="blog.content">
                 </div>
                 <div id="meta-data" class="row">
                     <div class="col tags">
