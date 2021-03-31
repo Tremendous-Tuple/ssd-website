@@ -6,6 +6,7 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { BlogComponent } from './blog/blog.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'articles/:id', component: ArticleComponent },
   { path: 'blogs', component: BlogsComponent },
   { path: 'blogs/:id', component: BlogComponent },
+  { path: 'login', component: LoginComponent},
   //{ path: '\*\*', component: ErrorComponent }
 ];
 
