@@ -37,34 +37,34 @@
         <div class="filter-container">
             <h2>Filter</h2>
 
-            <input class="form-control" type="text" placeholder="Search">
+            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gm">
                 <label class="form-check-label" for="flexCheckDefault">
                     General Meetings
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gbm">
                 <label class="form-check-label" for="flexCheckChecked">
                     GBMs
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.projects">
                 <label class="form-check-label" for="flexCheckChecked">
                     Projects
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.outreach">
                 <label class="form-check-label" for="flexCheckChecked">
                     Outreach
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.fundraisers">
                 <label class="form-check-label" for="flexCheckChecked">
                     Fundraisers
                 </label>
@@ -126,6 +126,8 @@
               <hr style="display: none;"/>
               <!--<pre>From date model: {{ fromDate | json }}</pre>
               <pre>To date model: {{ toDate | json }}</pre> -->
+
+              <button class="btn" (click)="submitFilters()" role="button">Submit</button>
         </div>
     </div>
 </div>

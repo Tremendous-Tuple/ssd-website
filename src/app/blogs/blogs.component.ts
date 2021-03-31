@@ -26,15 +26,23 @@ export interface Blog {
 
 export class BlogsComponent implements OnInit {
 
-  //blogs$ is an array of objects, each object contains the data of a blog.
+  //Blogs$ is an array of objects, each object contains the data of a blog.
   //Since is is an observable the content will automaically update when data in the db updates.
   //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
   //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
-
   blogs$: Observable<Blog[]>; 
 
+  //The following input is user data used to filter blogs$
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
+  searchText: string;
+  tags: {
+    gm: boolean,
+    gbm: boolean,
+    projects: boolean,
+    outreach: boolean,
+    fundraisers: boolean
+  };
 
   hoveredDate: NgbDate | null = null;
 
@@ -42,10 +50,17 @@ export class BlogsComponent implements OnInit {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     
+    this.tags = {
+      gm: true,
+      gbm: true,
+      projects: true,
+      outreach: true,
+      fundraisers: true
+    };
+
     library.addIcons(faCommentAlt);
 
-    // The code below will query all the blogs
-    // and return id + data
+    // The code below will query all the blogs and return id + data
     this.blogs$ = this.db.collection<Blog>('blogs') 
 
     .snapshotChanges().pipe(
@@ -58,7 +73,7 @@ export class BlogsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.blogs$.subscribe(data => console.log(data));
+    this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
   }
 
   /****** DATE PICKER FUNCTIONS ******/
@@ -88,5 +103,22 @@ export class BlogsComponent implements OnInit {
   validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+  }
+
+  /************ FILTER FUNCTIONS ***********/
+  submitFilters() {
+    //This function can be used to filter through blogs$ and alter it to a new object to fit the parameters.
+    //This method will only change the data displayed after "submit" is pressed.
+
+    //Another method is to filter the *ngFor
+    //I believe this will make the data change as the user inputs data.
+    //A tutorial on this can be found here: https://javascript.plainenglish.io/how-to-apply-filters-to-ngfor-in-angular-dc7c1b608712
+    console.log("searchtext: " + this.searchText);
+    console.log("tags: ");
+    console.log(this.tags);
+    console.log("From: ");
+    console.log(this.fromDate)
+    console.log("To: ");
+    console.log(this.toDate)
   }
 }
