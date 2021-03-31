@@ -42,7 +42,7 @@ export class BlogsComponent implements OnInit {
 
     // The code below will query all the blogs
     // and return id + data (e.g. title, description, img)
-    this.blogs$ = this.db.collection<Blog>('articles')
+    this.blogs$ = this.db.collection<Blog>('blogs')
     .snapshotChanges().pipe(
       map(changes => { return changes.map(a => {
         const data = a.payload.doc.data() as Blog;
