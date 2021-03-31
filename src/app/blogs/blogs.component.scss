@@ -1,0 +1,140 @@
+@import '../../assets/variables.scss';
+
+#blogs {
+    .talk-bubble {
+        margin-bottom: 40px;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: $textLight;
+        opacity: .8;
+    }
+
+    .round{
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+      
+    }
+
+    .blog-border{
+        border: 3px solid $secondary;
+    }
+    
+    /*Right triangle, placed bottom left side slightly in*/
+    .tri-right.btm-left-in:before {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 35px; 
+        right: auto;
+        top: auto;
+        bottom: -27px;
+        border: 13px solid;
+        border-color: $secondary transparent transparent $secondary;
+    }
+    .tri-right.btm-left-in:after{
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 38px;
+        right: auto;
+        top: auto;
+        bottom: -20px;
+        border: 12px solid;
+        border-color: $textLight transparent transparent $textLight
+    }
+
+    /********* INSIDE THE BUBBLE ********/
+    .blog-content{
+        text-align: center;
+        padding: 5px;
+
+        #overview {
+            padding: 10px 0;
+
+            #thumbnail {
+                img {
+                    max-height: 250px;
+                    object-fit: contain;
+                    display: block;
+                    width: 100%;
+
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+
+        #passage {
+            padding-top: 10px;
+        }
+
+        #meta-data{
+
+            .tags{
+                text-align: left;
+
+                .tag {
+                    display: inline-block;
+                    padding: 1px 10px;
+                    border-radius: 10px;
+                    background-color: $primary;
+                    opacity: .85;
+                    margin: 5px;
+    
+                    p {
+                        color: $textLight;
+                        margin: 0;
+                        display: inline-block;
+                    }
+                } 
+            }
+
+            .author,.date{
+                opacity: .7;
+                text-align: right;
+            }
+        }
+
+        .row{
+            margin: 0;
+        }
+    }
+}
+
+/*********** FILTER STYLES **********/
+#filters {
+    .hidden input {
+        padding: 0;
+        margin: 0;
+        width: 0;
+        height: 0;
+        border: 0;
+    }
+    .custom-day {
+        text-align: center;
+        padding: 0.185rem 0.25rem;
+        display: inline-block;
+        height: 2rem;
+        width: 2rem;
+    }
+    .custom-day.focused {
+        background-color: #e6e6e6;
+    }
+    .custom-day.range, .custom-day:hover {
+        background-color: rgb(2, 117, 216);
+        color: white;
+    }
+    .custom-day.faded {
+        background-color: rgba(2, 117, 216, 0.5);
+    }
+}
+
+.vertical-middle {
+    margin-top: auto;
+    margin-bottom: auto;
+}

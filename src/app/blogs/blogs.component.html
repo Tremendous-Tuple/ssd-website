@@ -1,0 +1,133 @@
+<div class="row justify-content-center">
+    <div id="blogs" class="col-9">
+        <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
+            <div class="blog-content">
+                <div id="overview" class="row">
+                    <div id="thumbnail" class="col-6">
+                        <img [src]="blog.img">
+                    </div>
+                    <div class="col-6 vertical-middle">
+                        <div id="title">
+                            <h4>{{blog.title}}</h4>
+                        </div>
+                        <div id="excerpt">
+                            <p>{{blog.excerpt}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="passage" [innerHTML]="blog.content">
+                </div>
+                <div id="meta-data" class="row">
+                    <div class="col tags">
+                        <div class="tag" *ngFor="let tag of blog.tags; index as i">
+                            <p>{{tag}}</p>
+                        </div>
+                    </div>
+                    <div class="col-auto author">
+                        <p>Author: {{blog.author}}</p>
+                    </div>
+                    <div class="col-auto date">
+                        <p>{{blog.date.toDate() | date: 'dd MMM YYYY' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="filters" class="col-3">
+        <div class="filter-container">
+            <h2>Filter</h2>
+
+            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gm">
+                <label class="form-check-label" for="flexCheckDefault">
+                    General Meetings
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gbm">
+                <label class="form-check-label" for="flexCheckChecked">
+                    GBMs
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.projects">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Projects
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.outreach">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Outreach
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.fundraisers">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Fundraisers
+                </label>
+            </div>
+
+            <h4>Date Range</h4>
+            <form class="form-inline">
+                <div class="form-group hidden">
+                  <div class="input-group">
+                    <input name="datepicker"
+                           class="form-control"
+                           ngbDatepicker
+                           #datepicker="ngbDatepicker"
+                           [autoClose]="'outside'"
+                           (dateSelect)="onDateSelection($event)"
+                           [displayMonths]="2"
+                           [dayTemplate]="t"
+                           outsideDays="hidden"
+                           [startDate]="fromDate!"
+                           tabindex="-1">
+                    <ng-template #t let-date let-focused="focused">
+                      <span class="custom-day"
+                            [class.focused]="focused"
+                            [class.range]="isRange(date)"
+                            [class.faded]="isHovered(date) || isInside(date)"
+                            (mouseenter)="hoveredDate = date"
+                            (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                      </span>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input #dpFromDate
+                           class="form-control" placeholder="yyyy-mm-dd"
+                           name="dpFromDate"
+                           [value]="formatter.format(fromDate)"
+                           (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 5px;">
+                  <div class="input-group">
+                    <input #dpToDate
+                           class="form-control" placeholder="yyyy-mm-dd"
+                           name="dpToDate"
+                           [value]="formatter.format(toDate)"
+                           (input)="toDate = validateInput(toDate, dpToDate.value)">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              
+              <hr style="display: none;"/>
+              <!--<pre>From date model: {{ fromDate | json }}</pre>
+              <pre>To date model: {{ toDate | json }}</pre> -->
+
+              <button class="btn" (click)="submitFilters()" role="button">Submit</button>
+        </div>
+    </div>
+</div>
