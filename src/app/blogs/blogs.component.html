@@ -15,8 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="passage" [innerHTML]="blog.content">
-                </div>
+                <div id="content" [innerHTML]="blog.content"></div>
                 <div id="meta-data" class="row">
                     <div class="col tags">
                         <div class="tag" *ngFor="let tag of blog.tags; index as i">
