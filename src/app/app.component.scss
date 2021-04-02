@@ -5,6 +5,7 @@
     background-color: $primary;
     padding: 10px;
     margin: 0;
+    flex: 0 1 auto;
 }
 
 .title {
@@ -28,12 +29,21 @@
     }
 }
 
+#page-container {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+}
+
 #content {
     padding-top: 25px;
+    flex: 1 1 auto;
 }
 
 #footer {
     background-color: $secondary;
     margin-top: 50px;
-    height: 200px;
+    flex: 0 1 100px;
+    width: 100%;
+    min-height: 100px;
 }

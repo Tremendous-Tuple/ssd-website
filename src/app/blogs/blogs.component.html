@@ -1,6 +1,8 @@
 <div class="row justify-content-center">
     <div id="blogs" class="col-9">
+        <a class="btn new-post" href="/blogs/new/" role="button">New Post</a>
         <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
+            <a [routerLink]="['/blogs', blog.id]" class="edit"><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
             <div class="blog-content">
                 <div id="overview" class="row">
                     <div id="thumbnail" class="col-6">
@@ -15,8 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="passage" [innerHTML]="blog.content">
-                </div>
+                <div id="content" [innerHTML]="blog.content"></div>
                 <div id="meta-data" class="row">
                     <div class="col tags">
                         <div class="tag" *ngFor="let tag of blog.tags; index as i">

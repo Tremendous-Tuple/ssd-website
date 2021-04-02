@@ -1,108 +1,130 @@
 @import '../../assets/variables.scss';
 
+.talk-bubble {
+    margin-bottom: 40px;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: $textLight;
+    opacity: .8;
+}
+
+.round{
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    
+}
+
+.blog-border{
+    border: 3px solid $secondary;
+}
+
 #blogs {
-    .talk-bubble {
-        margin-bottom: 40px;
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        height: auto;
-        background-color: $textLight;
-        opacity: .8;
+    text-align: center;
+
+    .new-post {
+        width: 80%;
+        background-color: $tertiary;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        font-weight: 600;
     }
 
-    .round{
-        border-radius: 30px;
-        -webkit-border-radius: 30px;
-        -moz-border-radius: 30px;
-      
-    }
-
-    .blog-border{
-        border: 3px solid $secondary;
-    }
-    
-    /*Right triangle, placed bottom left side slightly in*/
-    .tri-right.btm-left-in:before {
-        content: ' ';
+    .edit {
         position: absolute;
-        width: 0;
-        height: 0;
-        left: 35px; 
-        right: auto;
-        top: auto;
-        bottom: -27px;
-        border: 13px solid;
-        border-color: $secondary transparent transparent $secondary;
+        right: 10px;
+        margin-top: -15px;
+        color: $textLight;
+        background-color: $secondary;
+        padding: 7px;
+        border-radius: 20px;
+        font-size: 15px;
+        height: 34px;
     }
-    .tri-right.btm-left-in:after{
-        content: ' ';
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: 38px;
-        right: auto;
-        top: auto;
-        bottom: -20px;
-        border: 12px solid;
-        border-color: $textLight transparent transparent $textLight
-    }
+}
 
-    /********* INSIDE THE BUBBLE ********/
-    .blog-content{
-        text-align: center;
-        padding: 5px;
+/*Right triangle, placed bottom left side slightly in*/
+.tri-right.btm-left-in:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 35px; 
+    right: auto;
+    top: auto;
+    bottom: -27px;
+    border: 13px solid;
+    border-color: $secondary transparent transparent $secondary;
+}
+.tri-right.btm-left-in:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 38px;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    border: 12px solid;
+    border-color: $textLight transparent transparent $textLight
+}
 
-        #overview {
-            padding: 10px 0;
+/********* INSIDE THE BUBBLE ********/
+.blog-content{
+    text-align: center;
+    padding: 5px;
 
-            #thumbnail {
-                img {
-                    max-height: 250px;
-                    object-fit: contain;
-                    display: block;
-                    width: 100%;
+    #overview {
+        padding: 10px 0;
 
-                    margin-left: auto;
-                    margin-right: auto;
-                }
+        #thumbnail {
+            img {
+                max-height: 250px;
+                object-fit: contain;
+                display: block;
+                width: 100%;
+
+                margin-left: auto;
+                margin-right: auto;
             }
         }
+    }
 
-        #passage {
-            padding-top: 10px;
-        }
+    #content {
+        padding-top: 10px;
+    }
 
-        #meta-data{
+    #meta-data{
 
-            .tags{
-                text-align: left;
+        .tags{
+            text-align: left;
 
-                .tag {
+            .tag {
+                display: inline-block;
+                padding: 1px 10px;
+                border-radius: 10px;
+                background-color: $primary;
+                opacity: .85;
+                margin: 5px;
+
+                p {
+                    color: $textLight;
+                    margin: 0;
                     display: inline-block;
-                    padding: 1px 10px;
-                    border-radius: 10px;
-                    background-color: $primary;
-                    opacity: .85;
-                    margin: 5px;
-    
-                    p {
-                        color: $textLight;
-                        margin: 0;
-                        display: inline-block;
-                    }
-                } 
-            }
-
-            .author,.date{
-                opacity: .7;
-                text-align: right;
-            }
+                }
+            } 
         }
 
-        .row{
-            margin: 0;
+        .author,.date{
+            opacity: .7;
+            text-align: right;
         }
+    }
+
+    .row{
+        margin: 0;
     }
 }
 

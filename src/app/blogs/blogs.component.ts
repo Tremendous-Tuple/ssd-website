@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -58,8 +58,8 @@ export class BlogsComponent implements OnInit {
       fundraisers: true
     };
 
-    library.addIcons(faCommentAlt);
-
+    library.addIcons(faCommentAlt, faPencilAlt);
+    console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
     this.blogs$ = this.db.collection<Blog>('blogs') 

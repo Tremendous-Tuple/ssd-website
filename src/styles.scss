@@ -4,3 +4,8 @@
 html body { 
     background-color: $background; 
 }
+
+.dark-button {
+    color: $textLight !important;
+    background-color: $secondary !important;
+}

@@ -1,1 +1,74 @@
-<p>blog works!</p>
+
+<div id="editor-container" class="blog-content">
+
+    <div id="overview" class="row">
+        <div id="thumbnail" class="col-6">
+            <img [src]="blog.img">
+        </div>
+        <div class="col-6 vertical-middle">
+            <div class="form-group" id="title">
+                <label for="excerpt_"><b>Title</b></label>
+                <input class="form-control" type="text" placeholder="Title" [(ngModel)]="blog.title" id="title_">
+            </div>
+            <div class="form-group" id="excerpt">
+                <label for="excerpt_"><b>Exerpt</b></label>
+                <textarea class="form-control" placeholder="Write a sentence or two about your post." [(ngModel)]="blog.excerpt" id="excerpt_" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="content">
+        <label for="content_"><b>Content</b></label>
+        <textarea class="form-control" placeholder="This input takes in HTML and is the main content of your post." [(ngModel)]="blog.content" id="content_" rows="6"></textarea>
+    </div>
+
+    <div class="row">
+        <span class="tag-label"><b>Tags:</b></span>
+        <!-- 
+            We have a couple options when it comes to tags:
+
+            1) There are only a select few. Those show up on the filters as a radio and here.
+                - best solution for this is to make a collection in the blog document and have each option as a document in that collection as a boolean value
+
+            2) The tags are just a list of words inputed here and help when filtering the posts.
+                - best solution for this is the current db structure which has the tags as an array in the blog doc.
+        -->
+
+        <!--<div class="form-check col-auto">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[0]">
+            <label class="form-check-label" for="flexCheckDefault">
+                General Meetings
+            </label>
+        </div>
+        <div class="form-check col-auto">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[1]">
+            <label class="form-check-label" for="flexCheckChecked">
+                GBMs
+            </label>
+        </div>
+        <div class="form-check col-auto">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[2]">
+            <label class="form-check-label" for="flexCheckChecked">
+                Projects
+            </label>
+        </div>
+        <div class="form-check col-auto">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[3]">
+            <label class="form-check-label" for="flexCheckChecked">
+                Outreach
+            </label>
+        </div>
+        <div class="form-check col-auto">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[4]">
+            <label class="form-check-label" for="flexCheckChecked">
+                Fundraisers
+            </label>
+        </div>-->
+    </div>
+
+    <div class="row justify-content-end submit-row">
+        <div class="col-auto">
+            <button class="btn dark-button login-button" (click)="submit()" role="button">Submit</button>
+        </div>
+    </div>
+</div>
