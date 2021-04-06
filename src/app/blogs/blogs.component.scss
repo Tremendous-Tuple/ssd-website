@@ -132,8 +132,7 @@
 #filters {
     .filter-container {
         padding: 10px;
-        background-color: #EEFBFB;
-        opacity: .8;
+        background-color: #d5e7ec;
         border-radius: 10px;
         position: fixed;
         border: 3px solid $secondary;
@@ -151,7 +150,7 @@
         border: 0;
     }
     .form-group{
-        max-width: 150px;
+        max-width: 100%;
     }
     .tags {
         padding: 10px 0; 
