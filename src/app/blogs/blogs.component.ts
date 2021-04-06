@@ -62,7 +62,7 @@ export class BlogsComponent implements OnInit {
     console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
-    this.blogs$ = this.db.collection<Blog>('blogs') 
+    this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc')) 
     .snapshotChanges().pipe(
       map(changes => { return changes.map(a => {
         const data = a.payload.doc.data() as Blog;
