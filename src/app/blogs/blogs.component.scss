@@ -130,12 +130,31 @@
 
 /*********** FILTER STYLES **********/
 #filters {
+    .filter-container {
+        padding: 10px;
+        background-color: #EEFBFB;
+        opacity: .8;
+        border-radius: 10px;
+        position: fixed;
+        border: 3px solid #5D5C61;
+        padding-right: 20px;
+        margin-right: -10px;
+
+        width: 200px;
+        right: 0;
+    }
     .hidden input {
         padding: 0;
         margin: 0;
         width: 0;
         height: 0;
         border: 0;
+    }
+    .form-group{
+        max-width: 150px;
+    }
+    .tags {
+        padding: 10px 0; 
     }
     .custom-day {
         text-align: center;
@@ -153,6 +172,19 @@
     }
     .custom-day.faded {
         background-color: rgba(2, 117, 216, 0.5);
+    }
+    .submit-filter {
+        margin-top: 15px;
+    }
+    .calendar{
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+}
+
+@media (max-width: 1500px) and (min-width: 992px) {
+    #blogs {
+        margin-right: 200px;
     }
 }
 

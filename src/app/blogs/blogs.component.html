@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div id="blogs" class="col-9">
+    <div id="blogs" class="col-9 col-lg">
         <a class="btn new-post" href="/blogs/new/" role="button">New Post</a>
         <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
             <a [routerLink]="['/blogs', blog.id]" class="edit"><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
@@ -34,44 +34,46 @@
             </div>
         </div>
     </div>
-    <div id="filters" class="col-3">
+    <div id="filters" class="col-3 col-lg-auto">
         <div class="filter-container">
-            <h2>Filter</h2>
+            <h4>Filter</h4>
 
             <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gm">
-                <label class="form-check-label" for="flexCheckDefault">
-                    General Meetings
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gbm">
-                <label class="form-check-label" for="flexCheckChecked">
-                    GBMs
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.projects">
-                <label class="form-check-label" for="flexCheckChecked">
-                    Projects
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.outreach">
-                <label class="form-check-label" for="flexCheckChecked">
-                    Outreach
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.fundraisers">
-                <label class="form-check-label" for="flexCheckChecked">
-                    Fundraisers
-                </label>
+            <div class="tags">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gm">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        General Meetings
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.gbm">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        GBMs
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.projects">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Projects
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.outreach">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Outreach
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="tags.fundraisers">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Fundraisers
+                    </label>
+                </div>
             </div>
 
-            <h4>Date Range</h4>
+            <h6>Date Range</h6>
             <form class="form-inline">
                 <div class="form-group hidden">
                   <div class="input-group">
@@ -106,7 +108,9 @@
                            [value]="formatter.format(fromDate)"
                            (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                        <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -118,7 +122,9 @@
                            [value]="formatter.format(toDate)"
                            (input)="toDate = validateInput(toDate, dpToDate.value)">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                        <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -128,7 +134,7 @@
               <!--<pre>From date model: {{ fromDate | json }}</pre>
               <pre>To date model: {{ toDate | json }}</pre> -->
 
-              <button class="btn" (click)="submitFilters()" role="button">Submit</button>
+              <button class="btn dark-button submit-filter" (click)="submitFilters()" role="button">Submit</button>
         </div>
     </div>
 </div>
