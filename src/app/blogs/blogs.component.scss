@@ -74,6 +74,7 @@
 /********* INSIDE THE BUBBLE ********/
 .blog-content{
     text-align: center;
+    word-break: break-word;
     padding: 5px;
 
     #overview {
@@ -130,6 +131,8 @@
 
 /*********** FILTER STYLES **********/
 #filters {
+    z-index: 2;
+
     .filter-container {
         padding: 10px;
         background-color: #d5e7ec;
@@ -184,6 +187,26 @@
 @media (max-width: 1500px) and (min-width: 992px) {
     #blogs {
         margin-right: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-header {
+        display: none;
+    }
+
+    .form-group {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #filters {
+        margin: 15px;
+        text-align: center;
+    }
+
+    .filter-container {
+        display: contents;
     }
 }
 

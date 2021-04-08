@@ -10,19 +10,33 @@
 
 .site-logo {
     height: 40px;
+    display: inline-block;
     margin-right: 15px;
 }
 
 .title {
     text-align: center;
     color: $textLight;
+    padding: 0;
+
+    h3 {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 }
 .title:hover {
     text-decoration: none;
 }
 
+.spacer {
+    padding: 0;
+}
+
 .social-icons {
-    margin-right: 15px;
+    //margin-right: 15px;
     
     .row{
         height: 100%;
@@ -30,7 +44,7 @@
 
     .social-icon{
         color: $textLight;  
-        padding: 0 10px 0 10px 
+        padding: 0 7px; 
     }
 }
 
