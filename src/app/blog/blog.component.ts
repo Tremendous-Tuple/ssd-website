@@ -61,9 +61,17 @@ export class BlogComponent implements OnInit {
   submit() {
     if(this.newBlog){
       console.log("Creating new post...")
+      const blogsRef = this.db.collection('blogs');
+      const blogData: Blog = this.blog;
+      blogsRef.add(blogData);
     }
     else {
       console.log("Updating old post...")
+      const blogsRef = this.db.doc('blogs/'+this.id);
+      const blogData: Blog = this.blog;
+      return blogsRef.set(blogData, {
+        merge: true
+      })
     }
   }
 }
