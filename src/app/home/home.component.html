@@ -11,26 +11,12 @@
         <h2>Previous Events</h2>
     </div>
     <div class="blogs row justify-content-center">
-        <div class="post col-11 col-md-4">
+        <div class="post col-11 col-md-4" *ngFor="let blog of blogs$ | async; index as i">
             <div class="thumbnail">
-                <img src="../../assets/Angular_full_color_logo.png">
+                <img [src]="blog.img">
             </div>
-            <h4 class="title">Angular Workshop</h4>
-            <p class="excerpt">Learn how to use the Angular framework to create dynamic websites.</p>
-        </div>
-        <div class="post col-11 col-md-4">
-            <div class="thumbnail">
-                <img src="../../assets/firebase-logo.png">
-            </div>
-            <h4 class="title">Firebase Introduction</h4>
-            <p class="excerpt">Explore cheap and easy ways to store and distribute data to end users.</p>
-        </div>
-        <div class="post col-11 col-md-4">
-            <div class="thumbnail">
-                <img src="../../assets/480px-Bootstrap_logo.png">
-            </div>
-            <h4 class="title">Bootstrap Tutorial</h4>
-            <p class="excerpt">Review tools that bootstrap provides to develop responsive websites.</p>
+            <h4 class="title">{{blog.title}}</h4>
+            <p class="excerpt">{{blog.excerpt}}</p>
         </div>
     </div>
 

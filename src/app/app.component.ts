@@ -26,7 +26,7 @@ export class AppComponent implements AfterViewInit{
     console.log("logging in...");
   }
   title = 'ssd-website'
-  discordLink = 'https://discord.gg/SXkJpdV6';
-  facebookLink = 'https://facebook.com';
-  gitHubLink = 'https://github.com/Tremendous-Tuple';
+  discordLink = 'https://discord.gg/5SyB3yx';
+  facebookLink = 'https://www.facebook.com/groups/ufssd';
+  gitHubLink = 'https://github.com/ufssd';
 }
