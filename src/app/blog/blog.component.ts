@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 // listen to changes in the router
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +28,8 @@ export class BlogComponent implements OnInit {
 
   constructor(
     private db: AngularFirestore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public router: Router
   ) {
     // set 'id' when page loads from route params.id
     this.route.params.subscribe(params => this.id = params.id)
@@ -58,12 +60,15 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  submit() {
+  updateBlog(){
     if(this.newBlog){
       console.log("Creating new post...")
       const blogsRef = this.db.collection('blogs');
       const blogData: Blog = this.blog;
-      blogsRef.add(blogData);
+      this.blog.date = new Date()
+      console.log(JSON.parse(localStorage.getItem('user')))
+      this.blog.author = JSON.parse(localStorage.getItem('user')).email;
+      return blogsRef.add(blogData);
     }
     else {
       console.log("Updating old post...")
@@ -73,5 +78,9 @@ export class BlogComponent implements OnInit {
         merge: true
       })
     }
+  }
+  submit() {
+    this.updateBlog()
+    this.router.navigate(['blogs'])
   }
 }
