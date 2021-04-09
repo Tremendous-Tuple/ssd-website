@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
