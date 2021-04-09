@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { faCommentAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { map, min } from 'rxjs/operators';
+import { AuthService } from "../shared/services/auth.service";
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 
 export interface Blog {
@@ -45,8 +45,8 @@ export class BlogsComponent implements OnInit {
   };
 
   hoveredDate: NgbDate | null = null;
-
-  constructor(library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  isAdmin: boolean = false;
+  constructor(public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     
@@ -74,6 +74,9 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
+    if(this.authService.isLoggedIn == true) {
+      this.isAdmin = true;
+    }
   }
 
   /****** DATE PICKER FUNCTIONS ******/

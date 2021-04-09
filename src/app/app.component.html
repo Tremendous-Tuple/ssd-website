@@ -3,7 +3,7 @@
     <a class=" title col-12 col-sm-auto" [routerLink]="['']">
       <h3>Society of Software Developers</h3>
     </a>
-    <div class="col-sm"></div>
+    <div class="col-sm"><button class="btn dark-button login-button" (click)="logOut();" role="button" [hidden]='!isAdmin'>Sign Out</button></div>
     <div class="social-icons col-12 col-sm-auto">
       <div class="row justify-content-center align-items-center">
         <a href="{{discordLink}}" target="_blank" class="social-icon">

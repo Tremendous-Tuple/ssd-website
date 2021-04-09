@@ -1,8 +1,34 @@
 <div class="login-container row justify-content-center">
     <div class="col-12 col-md-8 col-lg-4 align-self-center">
         <h3>Administrator Login</h3>
-        <input class="form-control" type="text" placeholder="Username" [(ngModel)]="username">
-        <input class="form-control" type="password" placeholder="Password" [(ngModel)]="password">
-        <button class="btn dark-button login-button" (click)="login()" role="button">Log In</button>
+        <input class="form-control" type="text" placeholder="Username" #userName required [(ngModel)]="username">
+        <input class="form-control" type="password" placeholder="Password" #userPassword required [(ngModel)]="password">
+        <button class="btn dark-button login-button" (click)="login();" role="button">Log In</button>
     </div>
 </div>
+<!--
+<div class="displayTable">
+    <div class="displayTableCell">
+  
+      <div class="authBlock">
+        <h3>Sign In</h3>
+        <div class="formGroup">
+          <input type="text" class="formControl">
+        </div>
+  
+        <div class="formGroup">
+          <input type="password" class="formControl" placeholder="Password" #userPassword required>
+        </div>
+        <div class="formGroup">
+          <input type="button" class="btn btnPrimary" value="Log in">
+        </div>
+  
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Or</span></span>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+-->
+  
