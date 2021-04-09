@@ -1,0 +1,25 @@
+[debug] [2021-04-02T18:26:04.292Z] ----------------------------------------------------------------------
+[debug] [2021-04-02T18:26:04.294Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\PUREA\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-04-02T18:26:04.294Z] CLI Version:   9.3.0
+[debug] [2021-04-02T18:26:04.294Z] Platform:      win32
+[debug] [2021-04-02T18:26:04.295Z] Node Version:  v15.7.0
+[debug] [2021-04-02T18:26:04.296Z] Time:          Fri Apr 02 2021 14:26:04 GMT-0400 (Eastern Daylight Time)
+[debug] [2021-04-02T18:26:04.296Z] ----------------------------------------------------------------------
+[debug] [2021-04-02T18:26:04.296Z] 
+[debug] [2021-04-02T18:26:04.301Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-04-02T18:26:04.302Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\PUREA\OneDrive\Desktop\College\Spring2021\Software Engineering\Github\ssd-website
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+

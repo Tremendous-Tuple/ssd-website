@@ -14,11 +14,14 @@ import { environment } from '../environments/environment';
 export const firebaseConfig = environment.firebaseConfig;
 
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BlogsComponent } from './blogs/blogs.component';
 import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
+
+import { AuthService } from "./shared/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -34,12 +37,13 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
     AngularFirestoreModule,
     FontAwesomeModule,
     NgbModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

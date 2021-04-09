@@ -12,6 +12,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 export class AppComponent {
   constructor(library: FaIconLibrary) {
+    console.log('test ');
     library.addIcons(faDiscord, faFacebook, faGithub);
   }
   title = 'ssd-website'
