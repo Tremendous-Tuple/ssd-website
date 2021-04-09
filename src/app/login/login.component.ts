@@ -9,7 +9,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
-
+  isAdmin: boolean = false;
   constructor(
     public authService: AuthService
   ) { }
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.authService.SignIn(this.username, this.password).then((result) => {window.location.reload();});
     console.log("logging in...");
   }
 }
