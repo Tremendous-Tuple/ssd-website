@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { map, min } from 'rxjs/operators';
-import { AuthService } from "../shared/services/auth.service";
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { map } from 'rxjs/operators';
 
-export interface Blog {
-  title: string;
-  excerpt: string;
-  img: string;
-  content: string;
-  author: string;
-  date: {};
-  tags: [string];
-}
+import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { database } from 'firebase';
+
+import {Blog} from '../blog/blog.component';
+
+// export interface Blog {
+//   title: string;
+//   excerpt: string;
+//   img: string;
+//   content: string;
+//   author: string;
+//   date: NgbDate;
+//   tags: Set<string>;
+// }
+
+interface Tags {
+	gm: boolean;
+	gbm: boolean;
+	projects: boolean;
+	outreach: boolean;
+	fundraisers: boolean;
+};
 
 @Component({
   selector: 'app-blogs',
@@ -28,41 +39,28 @@ export class BlogsComponent implements OnInit {
 
   //Blogs$ is an array of objects, each object contains the data of a blog.
   //Since is is an observable the content will automaically update when data in the db updates.
-  //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
+  //This can cause unneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
   //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
-  blogs$: Observable<Blog[]>; 
+  blogs$: Observable<Blog[]>;
+  blogs: Blog[];  // Array of Blog objects retrieved from blogs$
 
   //The following input is user data used to filter blogs$
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
   searchText: string;
-  tags: {
-    gm: boolean,
-    gbm: boolean,
-    projects: boolean,
-    outreach: boolean,
-    fundraisers: boolean
-  };
+  searchTags: string;
 
   hoveredDate: NgbDate | null = null;
-  isAdmin: boolean = false;
-  constructor(public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+
+  constructor(library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    
-    this.tags = {
-      gm: true,
-      gbm: true,
-      projects: true,
-      outreach: true,
-      fundraisers: true
-    };
 
-    library.addIcons(faCommentAlt, faPencilAlt, faCalendarAlt);
+    library.addIcons(faCommentAlt, faPencilAlt);
     console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
-    this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc')) 
+    this.blogs$ = this.db.collection<Blog>('blogs')
     .snapshotChanges().pipe(
       map(changes => { return changes.map(a => {
         const data = a.payload.doc.data() as Blog;
@@ -74,9 +72,7 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
-    if(this.authService.isLoggedIn == true) {
-      this.isAdmin = true;
-    }
+    this.blogs$.subscribe(blogs => this.blogs = blogs);
   }
 
   /****** DATE PICKER FUNCTIONS ******/
@@ -96,7 +92,7 @@ export class BlogsComponent implements OnInit {
   }
 
   isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+    return this.fromDate && this.toDate && date >= this.fromDate && date <= this.toDate;
   }
 
   isRange(date: NgbDate) {
@@ -109,6 +105,33 @@ export class BlogsComponent implements OnInit {
   }
 
   /************ FILTER FUNCTIONS ***********/
+
+  filterBySearchText(blogs: Blog[], searchText: string): Blog[] {
+    let searchTextLC = searchText.toLowerCase();
+    return blogs.filter(
+      blog => blog.title?.toLowerCase().includes(searchTextLC) ||
+      blog.author?.toLowerCase().includes(searchTextLC) ||
+      blog.excerpt?.toLowerCase().includes(searchTextLC) || 
+      blog.content?.toLowerCase().includes(searchTextLC));
+  }
+
+  filterByTags(blogs: Blog[], searchTags: string): Blog[] {
+    if (searchTags.length == 0) { return Array<Blog>(0); }
+
+    let tags: Set<string> = new Set<string>(searchTags.split(","));
+    console.log("tags:");
+    console.log(tags);
+
+    return blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
+  }
+
+  filterByDateRange(blogs: Blog[]): Blog[] {
+    // let fDate = new Date(fromDate.year, fromDate.month - 1, fromDate.day);
+    // let tDate = new Date(toDate.year, toDate.month - 1, toDate.day);
+
+    return blogs.filter(blog => this.fromDate && this.toDate && blog.date >= this.fromDate && blog.date <= this.toDate);
+  }
+
   submitFilters() {
     //This function can be used to filter through blogs$ and alter it to a new object to fit the parameters.
     //This method will only change the data displayed after "submit" is pressed.
@@ -116,12 +139,39 @@ export class BlogsComponent implements OnInit {
     //Another method is to filter the *ngFor
     //I believe this will make the data change as the user inputs data.
     //A tutorial on this can be found here: https://javascript.plainenglish.io/how-to-apply-filters-to-ngfor-in-angular-dc7c1b608712
-    console.log("searchtext: " + this.searchText);
-    console.log("tags: ");
-    console.log(this.tags);
-    console.log("From: ");
-    console.log(this.fromDate)
-    console.log("To: ");
-    console.log(this.toDate)
+
+
+    let filtered_blogs = this.blogs;
+
+    console.log("initial blogs:")
+    console.log(this.blogs);
+    console.log(Array.from(this.blogs));
+    console.log(Array.from(this.blogs.keys()));
+    console.log(Array.from(this.blogs.values()));
+    console.log(this.blogs["0"].date);
+
+    // Filter by searchText
+    if (this.searchText) {
+      console.log("searchtext: " + this.searchText);
+      filtered_blogs = this.filterBySearchText(filtered_blogs, this.searchText);
+      console.log("filtered blogs:")
+      console.log(filtered_blogs);
+    } else { console.log("No search text entered."); }
+
+    // Filter by tags
+    if (this.searchTags) {
+      console.log("tags: " + this.searchTags);
+      filtered_blogs = this.filterByTags(filtered_blogs, this.searchTags);
+      console.log("filtered blogs:")
+      console.log(filtered_blogs);
+    } else { console.log("No search tags entered."); }
+
+    if(this.fromDate && this.toDate) {
+      console.log("From " + (new Date(this.fromDate.year, this.fromDate.month, this.fromDate.day)).toString() + "To " + (new Date(this.toDate.year, this.toDate.month, this.toDate.day)).toString());
+      filtered_blogs = this.filterByDateRange(filtered_blogs);
+      console.log("Filtered blogs: ");
+      console.log(this.blogs);
+    } else { console.log("No date range entered."); }
+
   }
 }
