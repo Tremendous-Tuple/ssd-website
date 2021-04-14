@@ -67,9 +67,12 @@
         </div>-->
     </div>
 
-    <div class="row justify-content-end submit-row">
+    <div class="row submit-row">
+        <div class="col">
+            <button [hidden]="newBlog" class="btn dark-button" (click)="delete()" role="button">Delete</button>
+        </div>
         <div class="col-auto">
-            <button class="btn dark-button login-button" (click)="submit()" role="button">Submit</button>
+            <button class="btn dark-button" (click)="submit()" role="button">Submit</button>
         </div>
     </div>
 </div>

@@ -101,8 +101,19 @@ export class BlogComponent implements OnInit {
       })
     }
   }
+
   submit() {
     this.updateBlog()
+    this.router.navigate(['blogs'])
+  }
+
+  delete() {
+    this.db.doc('blogs/'+this.id).delete().then(() => {
+      console.log("deleted post")
+    })
+    .catch((err) => {
+      console.log(err)
+    });
     this.router.navigate(['blogs'])
   }
 }
