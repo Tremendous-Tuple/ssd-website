@@ -4,6 +4,7 @@
     <div id="overview" class="row">
         <div id="thumbnail" class="col-6">
             <img [src]="blog.img">
+            <input type="file" class="form-control image-upload" id="customFile" (change)="onImageUpload($event)" />
         </div>
         <div class="col-6 vertical-middle">
             <div class="form-group" id="title">
