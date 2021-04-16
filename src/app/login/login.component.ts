@@ -20,5 +20,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.SignIn(this.username, this.password).then((result) => {window.location.reload();});
     console.log("logging in...");
+    console.log("email: " + this.username);
+    console.log("password: " + this.password);
   }
 }
