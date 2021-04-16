@@ -13,7 +13,7 @@ export interface Blog {
   content: string;
   author: string;
   date: {};
-  tags: [string];
+  tags: String[];
 }
 
 @Component({
@@ -25,6 +25,7 @@ export class BlogComponent implements OnInit {
   blog: Blog; 
   id: String;   // will hold id passed through route (:id) or "new" if creating new blog
   newBlog: boolean;
+  tagsInput: String;
 
   constructor(
     private db: AngularFirestore,
@@ -45,6 +46,7 @@ export class BlogComponent implements OnInit {
       date: {},
       tags: [""]
     }
+    this.tagsInput = "";
     this.newBlog = true;
     // query Firestore using 'id' when page loads
     this.db.doc('blogs/' + this.id).ref.get().then(<Blog>(doc) => {
@@ -52,6 +54,16 @@ export class BlogComponent implements OnInit {
         console.log(doc.data());
         this.blog = doc.data();
         this.newBlog = false; //change to false if we find the id.
+        
+        var i = 0;
+        for(let tag of this.blog.tags){
+          var delimeter = "";
+          if(i != 0){
+            delimeter = ", ";
+          }
+          i++;
+          this.tagsInput = this.tagsInput.concat(delimeter, tag.toString());
+        }
       } else {
         console.log("There is no document!"); //keep newBlog true. This happens if blogs/new is the current url or the id doesnt exist.
       }
@@ -103,7 +115,11 @@ export class BlogComponent implements OnInit {
   }
 
   submit() {
-    this.updateBlog()
+    this.blog.tags = this.tagsInput.split(",");
+    for(var i = 0; i < this.blog.tags.length; i++){
+      this.blog.tags[i] = this.blog.tags[i].trim();
+    }
+    this.updateBlog();
     this.router.navigate(['blogs'])
   }
 
