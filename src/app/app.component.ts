@@ -13,7 +13,6 @@ import { AuthService } from "./shared/services/auth.service";
 export class AppComponent implements AfterViewInit{
   isAdmin: boolean = false;
   constructor(library: FaIconLibrary,public authService: AuthService) {
-    console.log('test ');
     library.addIcons(faDiscord, faFacebook, faGithub);
   }
   ngAfterViewInit(): void {
