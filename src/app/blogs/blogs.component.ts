@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { database } from 'firebase';
 
+import { AuthService } from "../shared/services/auth.service";
 import {Blog} from '../blog/blog.component';
 
 // export interface Blog {
@@ -53,8 +54,8 @@ export class BlogsComponent implements OnInit {
   searchTags: string;
 
   hoveredDate: NgbDate | null = null;
-
-  constructor(library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  isAdmin: boolean = false;
+  constructor(public authService: AuthService, library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
 
