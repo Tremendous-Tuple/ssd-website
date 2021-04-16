@@ -118,7 +118,7 @@ export class BlogComponent implements OnInit {
   }
 }
 
-interface IResizeImageOptions {
+interface IResizeImageOptions { //https://stackoverflow.com/a/39235724
   maxSize: number;
   file: File;
 }
