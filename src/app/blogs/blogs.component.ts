@@ -31,18 +31,20 @@ export class BlogsComponent implements OnInit {
   //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
   //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
   blogs$: Observable<Blog[]>; 
+  blogs: Blog[];
 
   //The following input is user data used to filter blogs$
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
   searchText: string;
-  tags: {
+  searchTags: string;
+  /*tags: {
     gm: boolean,
     gbm: boolean,
     projects: boolean,
     outreach: boolean,
     fundraisers: boolean
-  };
+  };*/
 
   hoveredDate: NgbDate | null = null;
   isAdmin: boolean = false;
@@ -50,13 +52,13 @@ export class BlogsComponent implements OnInit {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     
-    this.tags = {
+    /*this.tags = {
       gm: true,
       gbm: true,
       projects: true,
       outreach: true,
       fundraisers: true
-    };
+    };*/
 
     library.addIcons(faCommentAlt, faPencilAlt, faCalendarAlt);
     console.log(library);
@@ -74,6 +76,7 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
+    this.blogs$.subscribe(blogs => this.blogs = blogs);
     if(this.authService.isLoggedIn == true) {
       this.isAdmin = true;
     }
@@ -109,6 +112,48 @@ export class BlogsComponent implements OnInit {
   }
 
   /************ FILTER FUNCTIONS ***********/
+  filterBySearchText(blogs: Blog[], searchText: string): Blog[] {
+    let searchTextLC = searchText.toLowerCase();
+    return blogs.filter(
+      blog => blog.title?.toLowerCase().includes(searchTextLC) ||
+      blog.author?.toLowerCase().includes(searchTextLC) ||
+      blog.excerpt?.toLowerCase().includes(searchTextLC) || 
+      blog.content?.toLowerCase().includes(searchTextLC));
+  }
+
+  filterByTags(blogs: Blog[], searchTags: string): Blog[] {
+    if (searchTags.length == 0) { return Array<Blog>(0); }
+
+    let tags: Set<string> = new Set<string>(searchTags.split(","));
+    console.log("tags:");
+    console.log(tags);
+
+    return blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
+  }
+
+  filterByDateRange(blogs: Blog[]): Blog[] {
+    // let fDate = new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day);
+    // let tDate = new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day);
+    // console.log("fDate: " + fDate);
+    // console.log("tDate: " + tDate);
+
+    let fromDateSeconds = Math.round((new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).getTime() / 1000)
+    let toDateSeconds = Math.round((new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).getTime() / 1000)
+  
+    console.log("fromDate seconds: " + fromDateSeconds);
+    console.log("toDate seconds: " + toDateSeconds);
+
+    console.log("all dates (" + blogs.length + "):");
+    blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
+  
+    let filtered_blogs = blogs.filter(blog => (blog.date["seconds"] - 12 * 60 * 60) >= fromDateSeconds && (blog.date["seconds"] - 12 * 60 * 60) <= toDateSeconds);
+    
+    console.log("filtered dates (" + filtered_blogs.length + "):");
+    filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
+
+    return filtered_blogs;
+  }
+
   submitFilters() {
     //This function can be used to filter through blogs$ and alter it to a new object to fit the parameters.
     //This method will only change the data displayed after "submit" is pressed.
@@ -116,12 +161,40 @@ export class BlogsComponent implements OnInit {
     //Another method is to filter the *ngFor
     //I believe this will make the data change as the user inputs data.
     //A tutorial on this can be found here: https://javascript.plainenglish.io/how-to-apply-filters-to-ngfor-in-angular-dc7c1b608712
-    console.log("searchtext: " + this.searchText);
-    console.log("tags: ");
-    console.log(this.tags);
-    console.log("From: ");
-    console.log(this.fromDate)
-    console.log("To: ");
-    console.log(this.toDate)
+
+
+    let filtered_blogs = this.blogs;
+
+    console.log("initial blogs:")
+    console.log(this.blogs);
+    console.log(Array.from(this.blogs));
+    console.log(Array.from(this.blogs.keys()));
+    console.log(Array.from(this.blogs.values()));
+    console.log(this.blogs["0"].date.seconds);
+
+    // Filter by searchText
+    if (this.searchText) {
+      console.log("searchtext: " + this.searchText);
+      filtered_blogs = this.filterBySearchText(filtered_blogs, this.searchText);
+      console.log("filtered blogs:")
+      console.log(filtered_blogs);
+    } else { console.log("No search text entered."); }
+
+    // Filter by tags
+    if (this.searchTags) {
+      console.log("tags: " + this.searchTags);
+      filtered_blogs = this.filterByTags(filtered_blogs, this.searchTags);
+      console.log("filtered blogs:")
+      console.log(filtered_blogs);
+    } else { console.log("No search tags entered."); }
+
+    if(this.fromDate && this.toDate) {
+      console.log("From " + (new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).toString() + 
+      "To " + (new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).toString());
+      filtered_blogs = this.filterByDateRange(filtered_blogs);
+      console.log("filtered blogs: ");
+      console.log(filtered_blogs);
+    } else { console.log("No date range entered."); }
+
   }
 }
