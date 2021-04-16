@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCommentAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -59,7 +59,7 @@ export class BlogsComponent implements OnInit {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
 
-    library.addIcons(faCommentAlt, faPencilAlt);
+    library.addIcons(faCommentAlt, faPencilAlt, faCalendarAlt);
     console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
