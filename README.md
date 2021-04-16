@@ -18,6 +18,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+##Deploy
+
+Run `npm install -g firebase-tools` to install firebase tools to your local machine. `firebase login`, follow the authentication procedure with ther Google account being used to host the website. Finally, run `firebase deploy` to push your local code to the live website (you must first build the site with `ng build` before doing this).
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
