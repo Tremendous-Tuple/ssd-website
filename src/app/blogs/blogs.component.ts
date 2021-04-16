@@ -75,6 +75,9 @@ export class BlogsComponent implements OnInit {
   ngOnInit(): void {
     this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
     this.blogs$.subscribe(blogs => this.blogs = blogs);
+    if(this.authService.isLoggedIn == true) {
+      this.isAdmin = true;
+    }
   }
 
   /****** DATE PICKER FUNCTIONS ******/
