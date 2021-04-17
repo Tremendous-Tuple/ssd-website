@@ -130,7 +130,7 @@
     </div>
     <div id="blogs" class="col-12 col-sm-9 col-lg">
         <a class="btn new-post" href="/blogs/new/" role="button" [hidden]='!isAdmin'>New Post</a>
-        <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
+        <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of filtered_blogs; index as i">
             <a [routerLink]="['/blogs', blog.id]" class="edit" [hidden]='!isAdmin'><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
             <div class="blog-content">
                 <div id="overview" class="row">
