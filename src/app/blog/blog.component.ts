@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 // listen to changes in the router
 import { ActivatedRoute } from '@angular/router';
 import { } from 'firebase/firestore'
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 export interface Blog {
   title: string;
@@ -13,11 +12,8 @@ export interface Blog {
   img: string;
   content: string;
   author: string;
-
-  date: NgbDate;
-  tags: Set<string>;
-
-
+  date: {};
+  tags: String[];
 }
 
 @Component({
@@ -41,15 +37,14 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit() {
-    let d = new Date();
     this.blog = {
       title: "",
       excerpt: "",
       img: "",
       content: "",
       author: "",
-      date: new NgbDate(d.getFullYear(), d.getMonth(), d.getDate()),
-      tags: new Set<string>()
+      date: {},
+      tags: [""]
     }
     this.tagsInput = "";
     this.newBlog = true;
