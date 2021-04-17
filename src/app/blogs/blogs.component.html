@@ -1,7 +1,42 @@
 <div class="row justify-content-center">
-    <div id="filters">
+    <div id="blogs" class="col-9">
+        <a class="btn new-post" href="/blogs/new/" role="button">New Post</a>
+        <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
+            <a [routerLink]="['/blogs', blog.id]" class="edit"><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
+            <div class="blog-content">
+                <div id="overview" class="row">
+                    <div id="thumbnail" class="col-6">
+                        <img [src]="blog.img">
+                    </div>
+                    <div class="col-6 vertical-middle">
+                        <div id="title">
+                            <h4>{{blog.title}}</h4>
+                        </div>
+                        <div id="excerpt">
+                            <p>{{blog.excerpt}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="content" [innerHTML]="blog.content"></div>
+                <div id="meta-data" class="row">
+                    <div class="col tags">
+                        <div class="tag" *ngFor="let tag of blog.tags; index as i">
+                            <p>{{tag}}</p>
+                        </div>
+                    </div>
+                    <div class="col-auto author">
+                        <p>Author: {{blog.author}}</p>
+                    </div>
+                    <div class="col-auto date">
+                        <p>{{blog.date.toDate() | date: 'dd MMM YYYY' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="filters" class="col-3">
         <div class="filter-container">
-            <h4 class="filter-header">Filter</h4>
+            <h2>Filter</h2>
 
             <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
             <input class="form-control" type="text" placeholder="Tags separated by commas..." [(ngModel)]="searchTags">
@@ -38,10 +73,9 @@
                 </div>
             </div> -->
 
-            <h6>Date Range</h6>
-            <!-- Date selector for everything but phones-->
-            <form class="d-none d-sm-flex form-inline">
-                <div class="hidden">
+            <h4>Date Range</h4>
+            <form class="form-inline">
+                <div class="form-group hidden">
                   <div class="input-group">
                     <input name="datepicker"
                            class="form-control"
@@ -74,9 +108,7 @@
                            [value]="formatter.format(fromDate)"
                            (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
-                        <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
-                      </button>
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                     </div>
                   </div>
                 </div>
@@ -88,80 +120,17 @@
                            [value]="formatter.format(toDate)"
                            (input)="toDate = validateInput(toDate, dpToDate.value)">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
-                        <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
-                      </button>
+                      <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                     </div>
                   </div>
                 </div>
-            </form>
-            
-            <form class="d-flex d-sm-none form-inline">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                           name="from_dp" [(ngModel)]="fromDate" ngbDatepicker #df="ngbDatepicker">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary calendar" (click)="df.toggle()" type="button">
-                        <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                      <input class="form-control" placeholder="yyyy-mm-dd"
-                             name="to_dp" [(ngModel)]="toDate" ngbDatepicker #dt="ngbDatepicker">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="dt.toggle()" type="button">
-                          <fa-icon [icon]="['fas', 'calendar-alt']" size='md'></fa-icon>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
               </form>
+              
+              <hr style="display: none;"/>
+              <!--<pre>From date model: {{ fromDate | json }}</pre>
+              <pre>To date model: {{ toDate | json }}</pre> -->
 
-            <hr style="display: none;"/>
-            <!--<pre>From date model: {{ fromDate | json }}</pre>
-            <pre>To date model: {{ toDate | json }}</pre> -->
-
-            <button class="btn dark-button submit-filter" (click)="submitFilters()" role="button">Submit</button>
+              <button class="btn" (click)="submitFilters()" role="button">Submit</button>
         </div>
     </div>
-    <div id="blogs" class="col-12 col-sm-9 col-lg">
-        <a class="btn new-post" href="/blogs/new/" role="button" [hidden]='!isAdmin'>New Post</a>
-        <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of blogs$ | async; index as i">
-            <a [routerLink]="['/blogs', blog.id]" class="edit" [hidden]='!isAdmin'><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
-            <div class="blog-content">
-                <div id="overview" class="row">
-                    <div id="thumbnail" class="col-6">
-                        <img [src]="blog.img">
-                    </div>
-                    <div class="col-6 vertical-middle">
-                        <div id="title">
-                            <h4>{{blog.title}}</h4>
-                        </div>
-                        <div id="excerpt">
-                            <p>{{blog.excerpt}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="content" [innerHTML]="blog.content"></div>
-                <div id="meta-data" class="row">
-                    <div class="col tags">
-                        <div class="tag" *ngFor="let tag of blog.tags; index as i">
-                            <p>{{tag}}</p>
-                        </div>
-                    </div>
-                    <div class="col-auto author">
-                        <p>Author: {{blog.author}}</p>
-                    </div>
-                    <div class="col-auto date">
-                        <p>{{blog.date.toDate() | date: 'dd MMM YYYY' }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-3 col-lg-auto"></div>
 </div>

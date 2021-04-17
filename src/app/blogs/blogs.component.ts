@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { map, min } from 'rxjs/operators';
-import { AuthService } from "../shared/services/auth.service";
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { map } from 'rxjs/operators';
 
-export interface Blog {
-  title: string;
-  excerpt: string;
-  img: string;
-  content: string;
-  author: string;
-  date: {};
-  tags: [string];
-}
+import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { database } from 'firebase';
+
+import {Blog} from '../blog/blog.component';
+
+// export interface Blog {
+//   title: string;
+//   excerpt: string;
+//   img: string;
+//   content: string;
+//   author: string;
+//   date: NgbDate;
+//   tags: Set<string>;
+// }
+
+interface Tags {
+	gm: boolean;
+	gbm: boolean;
+	projects: boolean;
+	outreach: boolean;
+	fundraisers: boolean;
+};
 
 @Component({
   selector: 'app-blogs',
@@ -28,16 +39,20 @@ export class BlogsComponent implements OnInit {
 
   //Blogs$ is an array of objects, each object contains the data of a blog.
   //Since is is an observable the content will automaically update when data in the db updates.
-  //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
+  //This can cause unneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
   //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
-  blogs$: Observable<Blog[]>; 
-  blogs: Blog[];
+
+  blogs$: Observable<Blog[]>;
+  blogs: Blog[];  // Array of Blog objects retrieved from blogs$
 
   //The following input is user data used to filter blogs$
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
+
+  // Strings for searching
   searchText: string;
   searchTags: string;
+
   /*tags: {
     gm: boolean,
     gbm: boolean,
@@ -46,9 +61,11 @@ export class BlogsComponent implements OnInit {
     fundraisers: boolean
   };*/
 
+
   hoveredDate: NgbDate | null = null;
   isAdmin: boolean = false;
-  constructor(public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  
+  constructor(library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     
@@ -61,10 +78,11 @@ export class BlogsComponent implements OnInit {
     };*/
 
     library.addIcons(faCommentAlt, faPencilAlt, faCalendarAlt);
+
     console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
-    this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc')) 
+    this.blogs$ = this.db.collection<Blog>('blogs')
     .snapshotChanges().pipe(
       map(changes => { return changes.map(a => {
         const data = a.payload.doc.data() as Blog;
@@ -99,7 +117,7 @@ export class BlogsComponent implements OnInit {
   }
 
   isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+    return this.fromDate && this.toDate && date >= this.fromDate && date <= this.toDate;
   }
 
   isRange(date: NgbDate) {
