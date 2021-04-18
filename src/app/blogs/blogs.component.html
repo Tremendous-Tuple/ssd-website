@@ -150,9 +150,9 @@
                 <div id="meta-data" class="row">
                     <div class="col tags">
                         <div class="tag" *ngFor="let tag of blog.tags; index as i">
-                          <div (click)="filterByTags(tag)">
-                            <p>{{tag}}</p>
-                          </div>
+                          <button (click)="filterByTags(tag)">
+                            {{tag}}
+                          </button>
                         </div>
                     </div>
                     <div class="col-auto author">
