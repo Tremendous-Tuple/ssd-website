@@ -6,20 +6,27 @@ orbs:
   node: circleci/node@1.1.0
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: '10.4'
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install mocha
-            - run: alias mocha='./node_modules/.bin/_mocha'
-            - run: npm install
-      - run:
-          command: npm start
-          background: true
-      - run: sleep 5
-      - run: npm run test
-      - store_test_results:
-          path: test-results
+        working_directory: ~/ssd-website
+        docker:
+            - image: circleci/node:10-browsers
+        steps:
+            # Checkout the code from the branch into the working_directory
+            - checkout
+            # Log the current branch
+            - run:
+                name: Show current branch
+                command: echo ${CIRCLE_BRANCH}
+            # Restore local dependencies from cache
+            - restore_cache:
+                keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
+            # Install project dependencies
+            - run:
+                name: Install local dependencies
+                command: npm install
+            # Cache local dependencies if they don't exist
+            - save_cache:
+                key: v1-dependencies-{{ checksum "package.json" }}
+                paths:
+                    - node_modules

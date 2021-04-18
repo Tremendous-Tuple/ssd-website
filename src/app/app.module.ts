@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ArticlesComponent } from './articles/articles.component';
-import { ArticleComponent } from './article/article.component';
 import { HomeComponent } from './home/home.component';
 
 import { environment } from '../environments/environment';
@@ -26,8 +24,6 @@ import { AuthService } from "./shared/services/auth.service";
 @NgModule({
   declarations: [
     AppComponent,
-    ArticlesComponent,
-    ArticleComponent,
     HomeComponent,
     BlogsComponent,
     BlogComponent,
