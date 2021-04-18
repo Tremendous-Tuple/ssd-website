@@ -75,6 +75,7 @@
 .blog-content{
     text-align: center;
     padding: 5px;
+    overflow-wrap: break-word;
 
     #overview {
         padding: 10px 0;
@@ -150,6 +151,9 @@
         width: 0;
         height: 0;
         border: 0;
+    }
+    .text-search {
+        margin: 5px 0;
     }
     .form-group{
         max-width: 100%;

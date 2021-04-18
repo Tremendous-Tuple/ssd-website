@@ -18,9 +18,13 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-##Deploy
+## Deploy
 
-Run `npm install -g firebase-tools` to install firebase tools to your local machine. `firebase login`, follow the authentication procedure with ther Google account being used to host the website. Finally, run `firebase deploy` to push your local code to the live website (you must first build the site with `ng build` before doing this).
+Run `npm install -g firebase-tools` to install firebase tools to your local machine then `firebase login` to authenticate your machine with the Googel account being used to host the site. Finally, run `ng build` to compile the code for deployment then run `firebase deploy` to push your local code to the live website.
+
+To reconfigure the deploy settings or firestore/firebase real-time databases run `firebase init`.
+
+live site: https://ssd-website-b628f.web.app/
 
 ## Running unit tests
 
