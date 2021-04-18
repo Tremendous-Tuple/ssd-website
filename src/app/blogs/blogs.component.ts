@@ -115,26 +115,26 @@ export class BlogsComponent implements OnInit {
   }
 
   /************ FILTER FUNCTIONS ***********/
-  filterBySearchText(blogs: Blog[], searchText: string): Blog[] {
+  filterBySearchText(searchText: string) {
     let searchTextLC = searchText.toLowerCase();
-    return blogs.filter(
+    this.filtered_blogs = this.filtered_blogs.filter(
       blog => blog.title?.toLowerCase().includes(searchTextLC) ||
       blog.author?.toLowerCase().includes(searchTextLC) ||
       blog.excerpt?.toLowerCase().includes(searchTextLC) || 
       blog.content?.toLowerCase().includes(searchTextLC));
   }
 
-  filterByTags(blogs: Blog[], searchTags: string): Blog[] {
+  filterByTags(searchTags: string) {
     if (searchTags.length == 0) { return Array<Blog>(0); }
 
     let tags: Set<string> = new Set<string>(searchTags.split(","));
     console.log("tags:");
     console.log(tags);
 
-    return blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
+    this.filtered_blogs = this.filtered_blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
   }
 
-  filterByDateRange(blogs: Blog[]): Blog[] {
+  filterByDateRange(){
     // let fDate = new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day);
     // let tDate = new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day);
     // console.log("fDate: " + fDate);
@@ -146,15 +146,15 @@ export class BlogsComponent implements OnInit {
     console.log("fromDate seconds: " + fromDateSeconds);
     console.log("toDate seconds: " + toDateSeconds);
 
-    console.log("all dates (" + blogs.length + "):");
-    blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
+    console.log("all dates (" + this.filtered_blogs.length + "):");
+    this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
   
-    this.filtered_blogs = blogs.filter(blog => (blog.date["seconds"] - 12 * 60 * 60) >= fromDateSeconds && (blog.date["seconds"] - 12 * 60 * 60) <= toDateSeconds);
+    this.filtered_blogs = this.filtered_blogs.filter(blog => (blog.date["seconds"] - 12 * 60 * 60) >= fromDateSeconds && (blog.date["seconds"] - 12 * 60 * 60) <= toDateSeconds);
     
     console.log("filtered dates (" + this.filtered_blogs.length + "):");
     this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
 
-    return this.filtered_blogs;
+    //return this.filtered_blogs;
   }
 
   submitFilters() {
@@ -180,7 +180,7 @@ export class BlogsComponent implements OnInit {
     // Filter by searchText
     if (this.searchText) {
       console.log("searchtext: " + this.searchText);
-      this.filtered_blogs = this.filterBySearchText(this.filtered_blogs, this.searchText);
+      this.filterBySearchText(this.searchText);
       console.log("filtered blogs:")
       console.log(this.filtered_blogs);
     } else { console.log("No search text entered."); }
@@ -188,7 +188,7 @@ export class BlogsComponent implements OnInit {
     // Filter by tags
     if (this.searchTags) {
       console.log("tags: " + this.searchTags);
-      this.filtered_blogs = this.filterByTags(this.filtered_blogs, this.searchTags);
+      this.filterByTags(this.searchTags);
       console.log("filtered blogs:")
       console.log(this.filtered_blogs);
     } else { console.log("No search tags entered."); }
@@ -196,7 +196,7 @@ export class BlogsComponent implements OnInit {
     if(this.fromDate && this.toDate) {
       console.log("From " + (new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).toString() + 
       "To " + (new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).toString());
-      this.filtered_blogs = this.filterByDateRange(this.filtered_blogs);
+      this.filterByDateRange();
       console.log("filtered blogs: ");
       console.log(this.filtered_blogs);
     } else { console.log("No date range entered."); }
