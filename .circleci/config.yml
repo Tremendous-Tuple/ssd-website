@@ -19,7 +19,7 @@ jobs:
             # Restore local dependencies from cache
             - restore_cache:
                 keys:
-                - v1-dependencies-{{ checksum "package-lock.json" }}
+                - v1-dependencies-{{ checksum "package.json" }}
                 - v1-dependencies-
             # Install project dependencies
             - run:
@@ -27,7 +27,7 @@ jobs:
                 command: npm install
             # Cache local dependencies if they don't exist
             - save_cache:
-                key: v1-dependencies-{{ checksum "package-lock.json" }}
+                key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
                     - node_modules
             # Test the source code
