@@ -110,10 +110,10 @@
                 opacity: .85;
                 margin: 5px;
 
-                p {
+                button {
                     color: $textLight;
-                    margin: 0;
-                    display: inline-block;
+                    background: none;
+                    border: none;
                 }
             } 
         }

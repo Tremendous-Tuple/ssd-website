@@ -101,7 +101,7 @@ export class BlogComponent implements OnInit {
       const blogData: Blog = this.blog;
       this.blog.date = new Date()
       console.log(JSON.parse(localStorage.getItem('user')))
-      this.blog.author = JSON.parse(localStorage.getItem('user')).email;
+      this.blog.author = JSON.parse(localStorage.getItem('user')).displayName;
       return blogsRef.add(blogData);
     }
     else {

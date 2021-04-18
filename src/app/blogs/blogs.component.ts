@@ -3,6 +3,8 @@ import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-soli
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { auth } from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 import { map, min } from 'rxjs/operators';
 import { AuthService } from "../shared/services/auth.service";
@@ -50,7 +52,8 @@ export class BlogsComponent implements OnInit {
 
   hoveredDate: NgbDate | null = null;
   isAdmin: boolean = false;
-  constructor(public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  displayName: string;
+  constructor(public afAuth: AngularFireAuth,public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.toDate = calendar.getToday();
     this.fromDate = calendar.getNext(calendar.getToday(), 'm', -1);
     
@@ -82,7 +85,19 @@ export class BlogsComponent implements OnInit {
     this.blogsSubscription = this.blogs$.subscribe(blogs => this.filtered_blogs = blogs); //if we dont unsubscribe any changes to data in the db will overwrite any filters
     if(this.authService.isLoggedIn == true) {
       this.isAdmin = true;
+      this.displayName = JSON.parse(localStorage.getItem('user')).displayName;
     }
+  }
+
+  newDisplayName(){
+    this.afAuth.currentUser.then((user) =>{
+      user.updateProfile({
+        displayName: this.displayName
+      }).then(() => {
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log("New Display Name: " + this.displayName);
+      })
+    })
   }
 
   /****** DATE PICKER FUNCTIONS ******/
@@ -125,13 +140,17 @@ export class BlogsComponent implements OnInit {
   }
 
   filterByTags(searchTags: string) {
-    if (searchTags.length == 0) { return Array<Blog>(0); }
+    if (searchTags.length == 0) { 
+      this.filtered_blogs = Array<Blog>(0); 
+    }
+    else{
+      searchTags = searchTags.toLowerCase();
+      let tags: Set<string> = new Set<string>(searchTags.split(","));
+      console.log("tags:");
+      console.log(tags);
 
-    let tags: Set<string> = new Set<string>(searchTags.split(","));
-    console.log("tags:");
-    console.log(tags);
-
-    this.filtered_blogs = this.filtered_blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
+      this.filtered_blogs = this.filtered_blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
+    }
   }
 
   filterByDateRange(){

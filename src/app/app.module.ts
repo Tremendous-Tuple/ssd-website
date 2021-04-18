@@ -20,6 +20,7 @@ import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 
 import { AuthService } from "./shared/services/auth.service";
+import { SafeHtmlPipe } from "./shared/pipes/safehtml.pipe";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AuthService } from "./shared/services/auth.service";
     HomeComponent,
     BlogsComponent,
     BlogComponent,
-    LoginComponent
+    LoginComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
