@@ -129,6 +129,14 @@
         </div>
     </div>
     <div id="blogs" class="col-12 col-sm-9 col-lg">
+        <div class="row justify-content-center" style="margin-bottom: 10px;">
+          <div class="col-4">
+            <input class="form-control text-search" type="text" placeholder="Display Name" [hidden]='!isAdmin' [(ngModel)]="displayName">
+          </div>
+          <div class="col-auto">
+            <a class="btn dark-button" role="button" [hidden]='!isAdmin' (click)="newDisplayName()">Submit</a>
+          </div>
+        </div>
         <a class="btn new-post" href="/blogs/new/" role="button" [hidden]='!isAdmin'>New Post</a>
         <div class="talk-bubble blog-border tri-right round btm-left-in" *ngFor="let blog of filtered_blogs; index as i">
             <a [routerLink]="['/blogs', blog.id]" class="edit" [hidden]='!isAdmin'><fa-icon [icon]="['fas', 'pencil-alt']" size='lg'></fa-icon></a>
@@ -146,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="content" [innerHTML]="blog.content"></div>
+                <div id="content" [innerHTML]="blog.content | safeHtml"></div>
                 <div id="meta-data" class="row">
                     <div class="col tags">
                         <div class="tag" *ngFor="let tag of blog.tags; index as i">
