@@ -30,10 +30,6 @@ jobs:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
                     - node_modules
-            # Test the source code
-            - run:
-                name: Testing
-                command: npm run test -- --no-watch --browsers=Chrome
             # End to End test
             - run:
                 name: End to End Test
