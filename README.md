@@ -28,7 +28,7 @@ live site: https://ssd-website-b628f.web.app/
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io). Additional tests have been implimented using CircleCI.
 
 ## Running end-to-end tests
 
