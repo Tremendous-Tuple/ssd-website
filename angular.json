@@ -30,6 +30,10 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "@firebase/firestore",
+              "@firebase/auth"
             ]
           },
           "configurations": {

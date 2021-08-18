@@ -5,7 +5,7 @@
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover; 
-    
+    border-radius: 8px;
     padding: 20px;
 
     h1, h2, h3, h4, p {
@@ -18,8 +18,7 @@
     margin-top: 25px;
     padding: 20px 5px;
     border-radius: 15px;
-    background-color: $tertiary;
-    //background: #0000002e;
+    background-color: #eee;
 
     .blog-intro, .blogs {
         margin-bottom: 15px;
@@ -30,7 +29,6 @@
 
         h2 {
             width: 100%;
-            color: $textLight;
             text-align: center;
         }
     }
@@ -81,4 +79,9 @@
     .list {
         margin: 25px 0;
     }
+}
+
+.meetings-text {
+    margin-top: 24px;
+    font-size: 1.5rem;
 }

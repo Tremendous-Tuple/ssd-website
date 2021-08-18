@@ -1,0 +1,10 @@
+{
+  "short_name": "SSD",
+  "name": "Society of Software Developers",
+  "start_url": "/",
+  "background_color": "#59b1f9",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#59b1f9",
+  "description": "Society of Software developers official site"
+}

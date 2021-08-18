@@ -1,8 +1,8 @@
 <div id="intro" class="row justify-content-center">
     <div class="col col-10">
         <h2>Software Development and Design</h2>
-        <h4>Spring 2021 meetings</h4>
-        <p>Tuesdays, 6:15pm over Zoom</p>
+        <h3 class="meetings-text">Fall 2021 meetings</h3>
+        <p>Tuesdays, 6:15pm over Zoom and in person (room TBA)</p>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
     <div class="blogs row justify-content-center">
         <div class="post col-11 col-md-4" *ngFor="let blog of blogs$ | async; index as i">
             <div class="thumbnail">
-                <img [src]="blog.img">
+                <img height="150px" width="100%"[src]="blog.img">
             </div>
             <h4 class="title">{{blog.title}}</h4>
             <p class="excerpt">{{blog.excerpt}}</p>
@@ -27,9 +27,25 @@
 
 <div id="upcoming-events" class='row'>
     <div class='col-12 col-lg-8 calendar'>
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=MONTH&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <iframe
+            title="Calendar of events"
+            src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=MONTH&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers"
+            style="border-width:0"
+            width="800"
+            height="600"
+            frameborder="0"
+            scrolling="no"
+        ></iframe>
     </div>
     <div class='d-none d-lg-block col-lg-4 list'>
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <iframe
+            title="List of events"
+            src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23708090&amp;ctz=America%2FNew_York&amp;src=ufssd.org%40gmail.com&amp;color=%23039BE5&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;title=Society%20of%20Software%20Developers"
+            style="border-width:0"
+            width="800"
+            height="600"
+            frameborder="0"
+            scrolling="no"
+        ></iframe>
     </div>
 </div>

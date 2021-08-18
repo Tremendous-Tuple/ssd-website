@@ -16,7 +16,8 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ssd-website'`, () => {
+  // eslint-disable-next-line quotes
+  it("should have as title 'ssd-website'", () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('ssd-website');
