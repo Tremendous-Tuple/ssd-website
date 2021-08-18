@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 // listen to changes in the router
 import { ActivatedRoute } from '@angular/router';
-import { } from 'firebase/firestore';
 
 export interface Blog {
   title: string;
@@ -32,7 +31,7 @@ export class BlogComponent implements OnInit {
     public router: Router
   ) {
     // set 'id' when page loads from route params.id
-    this.route.params.subscribe(params => this.id = params.id)
+    this.route.params.subscribe(params => this.id = params.id);
   }
 
   ngOnInit() {
