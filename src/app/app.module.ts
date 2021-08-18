@@ -12,15 +12,15 @@ import { environment } from '../environments/environment';
 export const firebaseConfig = environment.firebaseConfig;
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BlogsComponent } from './blogs/blogs.component';
 import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 
-import { AuthService } from "./shared/services/auth.service";
-import { SafeHtmlPipe } from "./shared/pipes/safehtml.pipe";
+import { AuthService } from './shared/services/auth.service';
+import { SafeHtmlPipe } from './shared/pipes/safehtml.pipe';
 
 @NgModule({
   declarations: [

@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from "./shared/guard/auth.guard";
+import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

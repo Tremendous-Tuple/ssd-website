@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../shared/services/auth.service";
+import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +9,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
-  isAdmin: boolean = false;
+  isAdmin = false;
   constructor(
     public authService: AuthService
   ) { }
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.SignIn(this.username, this.password).then((result) => {window.location.reload();});
+    this.authService.SignIn(this.username, this.password).then(() => { window.location.reload(); });
     //console.log("logging in...");
     //console.log("email: " + this.username);
     //console.log("password: " + this.password);

@@ -3,7 +3,7 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { AuthService } from "./shared/services/auth.service";
+import { AuthService } from './shared/services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +11,7 @@ import { AuthService } from "./shared/services/auth.service";
 })
 
 export class AppComponent implements AfterViewInit{
-  isAdmin: boolean = false;
+  isAdmin = false;
   constructor(library: FaIconLibrary,public authService: AuthService) {
     library.addIcons(faDiscord, faFacebook, faGithub);
   }
@@ -21,7 +21,7 @@ export class AppComponent implements AfterViewInit{
     }
   }
   logOut() {
-    this.authService.SignOut().then((result) => {window.location.reload();});
+    this.authService.SignOut().then(() => {window.location.reload();});
     // console.log("logging in...");
   }
   title = 'ssd-website'
