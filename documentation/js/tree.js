@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var handler = new Tautologistics.NodeHtmlParser.HtmlBuilder(function(error, dom) {
         if (error) {
-            console.log('handler ko');
+            // console.log('handler ko');
         }
     }),
         parser = new Tautologistics.NodeHtmlParser.Parser(handler),

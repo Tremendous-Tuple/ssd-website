@@ -66,7 +66,7 @@ export class BlogsComponent implements OnInit {
     };*/
 
     library.addIcons(faCommentAlt, faPencilAlt, faCalendarAlt);
-    console.log(library);
+    //console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
     this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc')) 
@@ -95,7 +95,7 @@ export class BlogsComponent implements OnInit {
         displayName: this.displayName
       }).then(() => {
         localStorage.setItem('user', JSON.stringify(user));
-        console.log("New Display Name: " + this.displayName);
+        // console.log("New Display Name: " + this.displayName);
       })
     })
   }
@@ -146,8 +146,8 @@ export class BlogsComponent implements OnInit {
     else{
       searchTags = searchTags.toLowerCase();
       let tags: Set<string> = new Set<string>(searchTags.split(","));
-      console.log("tags:");
-      console.log(tags);
+      // console.log("tags:");
+      // console.log(tags);
 
       this.filtered_blogs = this.filtered_blogs.filter(blog => Array.from(blog.tags).some(tag => tags.has(tag)));
     }
@@ -162,15 +162,15 @@ export class BlogsComponent implements OnInit {
     let fromDateSeconds = Math.round((new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).getTime() / 1000)
     let toDateSeconds = Math.round((new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).getTime() / 1000)
   
-    console.log("fromDate seconds: " + fromDateSeconds);
-    console.log("toDate seconds: " + toDateSeconds);
+    // console.log("fromDate seconds: " + fromDateSeconds);
+    // console.log("toDate seconds: " + toDateSeconds);
 
-    console.log("all dates (" + this.filtered_blogs.length + "):");
+    // console.log("all dates (" + this.filtered_blogs.length + "):");
     this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
   
     this.filtered_blogs = this.filtered_blogs.filter(blog => (blog.date["seconds"] - 12 * 60 * 60) >= fromDateSeconds && (blog.date["seconds"] - 12 * 60 * 60) <= toDateSeconds);
     
-    console.log("filtered dates (" + this.filtered_blogs.length + "):");
+    // console.log("filtered dates (" + this.filtered_blogs.length + "):");
     this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
 
     //return this.filtered_blogs;
@@ -189,35 +189,38 @@ export class BlogsComponent implements OnInit {
     this.filtered_blogs = this.blogs;
     this.blogsSubscription.unsubscribe();
 
-    console.log("initial blogs:")
-    console.log(this.blogs);
-    console.log(Array.from(this.blogs));
-    console.log(Array.from(this.blogs.keys()));
-    console.log(Array.from(this.blogs.values()));
-    console.log(this.blogs["0"].date.seconds);
+    // console.log("initial blogs:")
+    // console.log(this.blogs);
+    // console.log(Array.from(this.blogs));
+    // console.log(Array.from(this.blogs.keys()));
+    // console.log(Array.from(this.blogs.values()));
+    // console.log(this.blogs["0"].date.seconds);
 
     // Filter by searchText
     if (this.searchText) {
-      console.log("searchtext: " + this.searchText);
+      // console.log("searchtext: " + this.searchText);
       this.filterBySearchText(this.searchText);
-      console.log("filtered blogs:")
-      console.log(this.filtered_blogs);
-    } else { console.log("No search text entered."); }
+      // console.log("filtered blogs:")
+      // console.log(this.filtered_blogs);
+    }
+    // else { console.log("No search text entered."); }
 
     // Filter by tags
     if (this.searchTags) {
-      console.log("tags: " + this.searchTags);
+      // console.log("tags: " + this.searchTags);
       this.filterByTags(this.searchTags);
-      console.log("filtered blogs:")
-      console.log(this.filtered_blogs);
-    } else { console.log("No search tags entered."); }
+      // console.log("filtered blogs:")
+      // console.log(this.filtered_blogs);
+    } 
+    // else { console.log("No search tags entered."); }
 
     if(this.fromDate && this.toDate) {
-      console.log("From " + (new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).toString() + 
-      "To " + (new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).toString());
+      // console.log("From " + (new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).toString() + 
+      // "To " + (new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).toString());
       this.filterByDateRange();
-      console.log("filtered blogs: ");
-      console.log(this.filtered_blogs);
-    } else { console.log("No date range entered."); }
+      // console.log("filtered blogs: ");
+      // console.log(this.filtered_blogs);
+    }
+    // else { console.log("No date range entered."); }
   }
 }

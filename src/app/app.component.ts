@@ -22,7 +22,7 @@ export class AppComponent implements AfterViewInit{
   }
   logOut() {
     this.authService.SignOut().then((result) => {window.location.reload();});
-    console.log("logging in...");
+    // console.log("logging in...");
   }
   title = 'ssd-website'
   discordLink = 'https://discord.gg/5SyB3yx';

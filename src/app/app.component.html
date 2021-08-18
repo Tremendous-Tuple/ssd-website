@@ -1,20 +1,20 @@
 <div id="page-container">
   <nav class="header row">
     <a class="title col-12 col-sm-auto" [routerLink]="['']">
-      <img class="site-logo" src="./../assets/SSDLogo.svg" alt="ssd_logo">
-      <h3>Society of Software Developers</h3>
+      <img height="56px" width="56px" class="site-logo" src="./../assets/SSDLogo.svg" alt="SSD logo">
+      <h1 class="header-text">Society of Software Developers</h1>
     </a>
     <div class="spacer col-sm sign-out"><button class="btn dark-button login-button" (click)="logOut();" role="button" [hidden]='!isAdmin'>Sign Out</button></div>
     <div class="social-icons col-12 col-sm-auto">
       <div class="row justify-content-center align-items-center">
-        <a href="{{discordLink}}" target="_blank" class="social-icon">
-          <fa-icon [icon]="['fab', 'discord']" size='lg'></fa-icon>
+        <a rel="noreferrer" aria-label="Club Discord" href="{{discordLink}}" target="_blank" class="social-icon">
+          <fa-icon [icon]="['fab', 'discord']" size='2x'></fa-icon>
         </a>
-        <a href="{{facebookLink}}" target="_blank" class="social-icon">
-          <fa-icon [icon]="['fab', 'facebook']" size='lg'></fa-icon>
+        <a rel="noreferrer" aria-label="Club Facebook" href="{{facebookLink}}" target="_blank" class="social-icon">
+          <fa-icon [icon]="['fab', 'facebook']" size='2x'></fa-icon>
         </a>
-        <a href="{{gitHubLink}}" target="_blank" class="social-icon">
-          <fa-icon [icon]="['fab', 'github']" size='lg'></fa-icon>
+        <a rel="noreferrer" aria-label="Club Github" href="{{gitHubLink}}" target="_blank" class="social-icon">
+          <fa-icon [icon]="['fab', 'github']" size='2x'></fa-icon>
         </a>
       </div>
     </div>

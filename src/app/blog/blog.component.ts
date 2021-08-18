@@ -51,7 +51,7 @@ export class BlogComponent implements OnInit {
     // query Firestore using 'id' when page loads
     this.db.doc('blogs/' + this.id).ref.get().then(<Blog>(doc) => {
       if (doc.exists) {
-        console.log(doc.data());
+        // console.log(doc.data());
         this.blog = doc.data();
         this.newBlog = false; //change to false if we find the id.
         
@@ -68,7 +68,7 @@ export class BlogComponent implements OnInit {
         console.log("There is no document!"); //keep newBlog true. This happens if blogs/new is the current url or the id doesnt exist.
       }
     }).catch(function (error) {
-      console.log("There was an error getting your document:", error);
+      // console.log("There was an error getting your document:", error);
     });
   }
 
@@ -77,17 +77,17 @@ export class BlogComponent implements OnInit {
       file: event.target.files[0],
       maxSize: 500
     }).then(<Blob>(resizedImage) => {
-      console.log("upload resized image")
+      // console.log("upload resized image")
 
       let file = resizedImage;
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         this.blog.img = reader.result.toString();
-        console.log("image uplaoded successfully");
+        // console.log("image uplaoded successfully");
       };
       reader.onerror = function (error) {
-        console.log('Error: ', error);
+        // console.log('Error: ', error);
       };
     }).catch(function (err) {
       console.error(err);
@@ -96,16 +96,16 @@ export class BlogComponent implements OnInit {
 
   updateBlog() {
     if(this.newBlog){
-      console.log("Creating new post...")
+      // console.log("Creating new post...")
       const blogsRef = this.db.collection('blogs');
       const blogData: Blog = this.blog;
       this.blog.date = new Date()
-      console.log(JSON.parse(localStorage.getItem('user')))
+      // console.log(JSON.parse(localStorage.getItem('user')))
       this.blog.author = JSON.parse(localStorage.getItem('user')).displayName;
       return blogsRef.add(blogData);
     }
     else {
-      console.log("Updating old post...")
+      // console.log("Updating old post...")
       const blogsRef = this.db.doc('blogs/'+this.id);
       const blogData: Blog = this.blog;
       return blogsRef.set(blogData, {
@@ -125,7 +125,7 @@ export class BlogComponent implements OnInit {
 
   delete() {
     this.db.doc('blogs/'+this.id).delete().then(() => {
-      console.log("deleted post")
+      // console.log("deleted post")
     })
     .catch((err) => {
       console.log(err)
