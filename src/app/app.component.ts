@@ -1,7 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { AuthService } from './shared/services/auth.service';
 @Component({
@@ -13,7 +11,7 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent implements AfterViewInit{
   isAdmin = false;
   constructor(library: FaIconLibrary,public authService: AuthService) {
-    library.addIcons(faDiscord, faFacebook, faGithub);
+    library.addIcons(faDiscord, faLinkedin, faGithub);
   }
   ngAfterViewInit(): void {
     if(this.authService.isLoggedIn == true) {
@@ -26,6 +24,6 @@ export class AppComponent implements AfterViewInit{
   }
   title = 'ssd-website'
   discordLink = 'https://discord.gg/5SyB3yx';
-  facebookLink = 'https://www.facebook.com/groups/ufssd';
+  linkedinLink = 'https://www.linkedin.com/company/80386674';
   gitHubLink = 'https://github.com/ufssd';
 }

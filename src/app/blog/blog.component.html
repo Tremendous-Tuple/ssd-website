@@ -3,16 +3,20 @@
     <div id="overview" class="row">
         <div id="thumbnail" class="col-6">
             <img height="150px" width="100%" [src]="blog.img">
-            <input type="file" class="form-control image-upload" id="customFile" (change)="onImageUpload($event)" />
+            <input type="file" class="form-control image-upload" id="customFile"
+                (change)="onImageUpload($event)" />
         </div>
         <div class="col-6 vertical-middle">
             <div class="form-group" id="title">
                 <label for="title_"><b>Title</b></label>
-                <input class="form-control" type="text" placeholder="Title" [(ngModel)]="blog.title" id="title_">
+                <input class="form-control" type="text" placeholder="Title"
+                    [(ngModel)]="blog.title" id="title_">
             </div>
             <div class="form-group" id="excerpt">
                 <label for="excerpt_"><b>Exerpt</b></label>
-                <textarea class="form-control" placeholder="Write a sentence or two about your post." [(ngModel)]="blog.excerpt" id="excerpt_" rows="3"></textarea>
+                <textarea class="form-control" placeholder="Write a sentence or
+                    two about your post." [(ngModel)]="blog.excerpt"
+                    id="excerpt_" rows="3"></textarea>
             </div>
         </div>
     </div>
@@ -21,7 +25,9 @@
         <div class="col-12">
             <div class="form-group" id="content">
                 <label for="content_"><b>Content</b></label>
-                <textarea class="form-control" placeholder="This input takes in HTML and is the main content of your post." [(ngModel)]="blog.content" id="content_" rows="6"></textarea>
+                <textarea class="form-control" placeholder="This input takes in
+                    HTML and is the main content of your post."
+                    [(ngModel)]="blog.content" id="content_" rows="6"></textarea>
             </div>
         </div>
     </div>
@@ -30,7 +36,8 @@
         <div class="col-4">
             <div class="form-group" id="tags">
                 <label for="tags_"><b>Tags</b></label>
-                <input class="form-control" type="text" placeholder='seperate the tags with ","' [(ngModel)]="tagsInput" id="tags_">
+                <input class="form-control" type="text" placeholder='seperate
+                    the tags with"," ' [(ngModel)]="tagsInput" id="tags_">
             </div>
         </div>
         <!-- 
@@ -42,7 +49,6 @@
             2) The tags are just a list of words inputed here and help when filtering the posts.
                 - best solution for this is the current db structure which has the tags as an array in the blog doc.
         -->
-
         <!--<div class="form-check col-auto">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="blog.tags[0]">
             <label class="form-check-label" for="flexCheckDefault">
@@ -77,7 +83,8 @@
 
     <div class="row submit-row">
         <div class="col">
-            <button [hidden]="newBlog" class="btn dark-button" (click)="delete()" role="button">Delete</button>
+            <button [hidden]="newBlog" class="btn dark-button"
+                (click)="delete()" role="button">Delete</button>
         </div>
         <div class="col-auto">
             <button class="btn dark-button" (click)="submit()" role="button">Submit</button>

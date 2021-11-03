@@ -2,7 +2,8 @@
 @import 'assets/variables.scss';
 
 html body { 
-    background-color: $background; 
+    background-color: $background;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .dark-button {

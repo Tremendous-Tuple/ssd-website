@@ -3,12 +3,12 @@ import { faCommentAlt, faPencilAlt, faCalendarAlt } from '@fortawesome/free-soli
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 import { map, min } from 'rxjs/operators';
-import { AuthService } from "../shared/services/auth.service";
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../shared/services/auth.service';
+import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 export interface Blog {
   title: string;
@@ -32,7 +32,7 @@ export class BlogsComponent implements OnInit {
   //Since is is an observable the content will automaically update when data in the db updates.
   //This can cause uneccessary traffic but since blog content wont be changing much it should't impact performance or cost too much.
   //With the data being an observable allows for more scalability and more features like a live update of how many likes/shares it recieves
-  blogs$: Observable<Blog[]>; 
+  blogs$: Observable<Blog[]>;
   blogs: Blog[];
   filtered_blogs: Blog[];
   blogsSubscription: Subscription;
@@ -53,10 +53,10 @@ export class BlogsComponent implements OnInit {
   hoveredDate: NgbDate | null = null;
   isAdmin: boolean = false;
   displayName: string;
-  constructor(public afAuth: AngularFireAuth,public authService: AuthService,library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  constructor(public afAuth: AngularFireAuth, public authService: AuthService, library: FaIconLibrary, private db: AngularFirestore, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.toDate = calendar.getToday();
     this.fromDate = calendar.getNext(calendar.getToday(), 'm', -1);
-    
+
     /*this.tags = {
       gm: true,
       gbm: true,
@@ -69,35 +69,37 @@ export class BlogsComponent implements OnInit {
     //console.log(library);
     // The code below will query all the blogs and return id + data
     //  This method is poorly optimized and not scallable. Later we should try only pulling needed documents.
-    this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc')) 
-    .snapshotChanges().pipe(
-      map(changes => { return changes.map(a => {
-        const data = a.payload.doc.data() as Blog;
-        const id = a.payload.doc.id;
-        return { id, ...data }; //the object that contains blog data also has an element named "id" that has the doccument name of the blog
-      })})
-    );
+    this.blogs$ = this.db.collection<Blog>('blogs', ref => ref.orderBy('date', 'desc'))
+      .snapshotChanges().pipe(
+        map(changes => {
+          return changes.map(a => {
+            const data = a.payload.doc.data() as Blog;
+            const id = a.payload.doc.id;
+            return { id, ...data }; //the object that contains blog data also has an element named "id" that has the doccument name of the blog
+          });
+        })
+      );
   }
 
   ngOnInit(): void {
     this.blogs$.subscribe(data => console.log(data)); //check the console for blogs data whenever the page loads or data updates
     this.blogs$.subscribe(blogs => this.blogs = blogs);
     this.blogsSubscription = this.blogs$.subscribe(blogs => this.filtered_blogs = blogs); //if we dont unsubscribe any changes to data in the db will overwrite any filters
-    if(this.authService.isLoggedIn == true) {
+    if (this.authService.isLoggedIn == true) {
       this.isAdmin = true;
       this.displayName = JSON.parse(localStorage.getItem('user')).displayName;
     }
   }
 
-  newDisplayName(){
-    this.afAuth.currentUser.then((user) =>{
+  newDisplayName() {
+    this.afAuth.currentUser.then((user) => {
       user.updateProfile({
         displayName: this.displayName
       }).then(() => {
         localStorage.setItem('user', JSON.stringify(user));
         // console.log("New Display Name: " + this.displayName);
-      })
-    })
+      });
+    });
   }
 
   /****** DATE PICKER FUNCTIONS ******/
@@ -134,18 +136,18 @@ export class BlogsComponent implements OnInit {
     let searchTextLC = searchText.toLowerCase();
     this.filtered_blogs = this.filtered_blogs.filter(
       blog => blog.title?.toLowerCase().includes(searchTextLC) ||
-      blog.author?.toLowerCase().includes(searchTextLC) ||
-      blog.excerpt?.toLowerCase().includes(searchTextLC) || 
-      blog.content?.toLowerCase().includes(searchTextLC));
+        blog.author?.toLowerCase().includes(searchTextLC) ||
+        blog.excerpt?.toLowerCase().includes(searchTextLC) ||
+        blog.content?.toLowerCase().includes(searchTextLC));
   }
 
   filterByTags(searchTags: string) {
-    if (searchTags.length == 0) { 
-      this.filtered_blogs = Array<Blog>(0); 
+    if (searchTags.length == 0) {
+      this.filtered_blogs = Array<Blog>(0);
     }
-    else{
+    else {
       searchTags = searchTags.toLowerCase();
-      let tags: Set<string> = new Set<string>(searchTags.split(","));
+      const tags: Set<string> = new Set<string>(searchTags.split(','));
       // console.log("tags:");
       // console.log(tags);
 
@@ -153,25 +155,25 @@ export class BlogsComponent implements OnInit {
     }
   }
 
-  filterByDateRange(){
+  filterByDateRange() {
     // let fDate = new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day);
     // let tDate = new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day);
     // console.log("fDate: " + fDate);
     // console.log("tDate: " + tDate);
 
-    let fromDateSeconds = Math.round((new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).getTime() / 1000)
-    let toDateSeconds = Math.round((new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).getTime() / 1000)
-  
+    const fromDateSeconds = Math.round((new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).getTime() / 1000)
+    const toDateSeconds = Math.round((new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).getTime() / 1000)
+
     // console.log("fromDate seconds: " + fromDateSeconds);
     // console.log("toDate seconds: " + toDateSeconds);
 
     // console.log("all dates (" + this.filtered_blogs.length + "):");
-    this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
-  
-    this.filtered_blogs = this.filtered_blogs.filter(blog => (blog.date["seconds"] - 12 * 60 * 60) >= fromDateSeconds && (blog.date["seconds"] - 12 * 60 * 60) <= toDateSeconds);
-    
+    this.filtered_blogs.forEach(blog => console.log(blog.title + ' seconds: ' + (blog.date['seconds'] - 12 * 60 * 60)));
+
+    this.filtered_blogs = this.filtered_blogs.filter(blog => (blog.date['seconds'] - 12 * 60 * 60) >= fromDateSeconds && (blog.date['seconds'] - 12 * 60 * 60) <= toDateSeconds);
+
     // console.log("filtered dates (" + this.filtered_blogs.length + "):");
-    this.filtered_blogs.forEach(blog => console.log(blog.title + " seconds: " + (blog.date["seconds"] - 12 * 60 * 60)));
+    this.filtered_blogs.forEach(blog => console.log(blog.title + ' seconds: ' + (blog.date['seconds'] - 12 * 60 * 60)));
 
     //return this.filtered_blogs;
   }
@@ -211,10 +213,10 @@ export class BlogsComponent implements OnInit {
       this.filterByTags(this.searchTags);
       // console.log("filtered blogs:")
       // console.log(this.filtered_blogs);
-    } 
+    }
     // else { console.log("No search tags entered."); }
 
-    if(this.fromDate && this.toDate) {
+    if (this.fromDate && this.toDate) {
       // console.log("From " + (new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day)).toString() + 
       // "To " + (new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day)).toString());
       this.filterByDateRange();
